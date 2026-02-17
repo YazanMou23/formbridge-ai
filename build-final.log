@@ -1,0 +1,39 @@
+??? Next.js 16.1.6 (webpack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+??? Compiled successfully in 10.5s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/20) ...
+  Generating static pages using 15 workers (5/20) 
+  Generating static pages using 15 workers (10/20) 
+  Generating static pages using 15 workers (15/20) 
+??? Generating static pages using 15 workers (20/20) in 1018.6ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+??? ??? /
+??? ??? /_not-found
+??? ?? /api/analyze
+??? ?? /api/auth/login
+??? ?? /api/auth/logout
+??? ?? /api/auth/me
+??? ?? /api/auth/register
+??? ?? /api/auth/verify
+??? ?? /api/credits/deduct
+??? ?? /api/cv/generate
+??? ?? /api/explain
+??? ?? /api/payments/checkout
+??? ?? /api/payments/packages
+??? ?? /api/payments/webhook
+??? ?? /api/translate
+??? ??? /datenschutz
+??? ??? /impressum
+??? ??? /ueber-uns
+
+
+???  (Static)   prerendered as static content
+??  (Dynamic)  server-rendered on demand
+

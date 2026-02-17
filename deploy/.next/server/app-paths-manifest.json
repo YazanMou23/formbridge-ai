@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/auth/me/route": "app/api/auth/me/route.js",
+  "/api/auth/verify/route": "app/api/auth/verify/route.js",
+  "/api/analyze/route": "app/api/analyze/route.js",
+  "/api/cv/generate/route": "app/api/cv/generate/route.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/api/credits/deduct/route": "app/api/credits/deduct/route.js",
+  "/api/payments/checkout/route": "app/api/payments/checkout/route.js",
+  "/api/explain/route": "app/api/explain/route.js",
+  "/api/payments/webhook/route": "app/api/payments/webhook/route.js",
+  "/api/translate/route": "app/api/translate/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/payments/packages/route": "app/api/payments/packages/route.js",
+  "/page": "app/page.js",
+  "/impressum/page": "app/impressum/page.js",
+  "/ueber-uns/page": "app/ueber-uns/page.js",
+  "/datenschutz/page": "app/datenschutz/page.js"
+}

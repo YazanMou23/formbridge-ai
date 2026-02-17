@@ -1,0 +1,60 @@
+﻿node.exe : ÔÜá Warning: 
+Next.js inferred your 
+workspace root, but it may 
+not be correct.
+In Zeile:1 Zeichen:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: (ÔÜá W  
+  arning: Ne...not be cor   
+ rect.:String) [], Remot    
+eException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+ We detected multiple 
+lockfiles and selected the 
+directory of C:\Users\yazan\
+OneDrive\Desktop\dev app\Ai 
+helper\package-lock.json as 
+the root directory.
+ To silence this warning, 
+set `outputFileTracingRoot` 
+in your Next.js config, or 
+consider removing one of 
+the lockfiles if it's not 
+needed.
+   See https://nextjs.org/do
+cs/app/api-reference/config/
+next-config-js/output#caveat
+s for more information.
+ Detected additional 
+lockfiles: 
+   * C:\Users\yazan\OneDrive
+\Desktop\dev app\Ai helper\f
+ormbridge-ai\package-lock.js
+on
+
+
+> Build error occurred
+Error: EPERM: operation not 
+permitted, unlink 'C:\Users\
+yazan\OneDrive\Desktop\dev 
+app\Ai helper\formbridge-ai\
+.next\types\app'
+    at ignore-listed frames 
+{
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'unlink',
+  path: 'C:\\Users\\yazan\\O
+neDrive\\Desktop\\dev 
+app\\Ai helper\\formbridge-a
+i\\.next\\types\\app'
+}

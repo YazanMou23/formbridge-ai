@@ -1,0 +1,47 @@
+{
+  "users": {
+    "yazanmousa03@gmail.com": {
+      "id": "user_1770418082136",
+      "email": "yazanmousa03@gmail.com",
+      "name": "yazan",
+      "credits": 0,
+      "createdAt": "2026-02-06T22:48:02.136Z",
+      "passwordHash": "$2b$10$CoJCD5S7LFdzFooRtgSqmuNyL.gZiQTCrjC1QzWAYxa2g53iooLNq"
+    },
+    "oneahmed@gmail.com": {
+      "id": "user_1770515569637",
+      "email": "oneahmed@gmail.com",
+      "name": "yazan12",
+      "credits": 0,
+      "createdAt": "2026-02-08T01:52:49.637Z",
+      "passwordHash": "$2b$10$r7N8B5qHJVbrkziiZ3qkNeziTEQsbm/6uRuAO2mkAo68O3R.H2uxe"
+    },
+    "YazanMousa@web.de": {
+      "id": "user_1771029880421",
+      "email": "YazanMousa@web.de",
+      "name": "yaya",
+      "credits": 6,
+      "createdAt": "2026-02-14T00:44:40.421Z",
+      "passwordHash": "$2b$10$DJnTh5zHC5oGdwrLqf4zSekoLtSg0W3rTFOeofxhhiqNW8FAHjNmS"
+    },
+    "y@gmail.com": {
+      "id": "user_1771111684086",
+      "email": "y@gmail.com",
+      "name": "xysasds",
+      "credits": 10,
+      "createdAt": "2026-02-14T23:28:04.086Z",
+      "passwordHash": "$2b$10$E0gaFB0q0OhEip3ULTZ00Odty.WlmCl.UWj.VzUeZoiVfUx9l9mrq"
+    },
+    "yazanmousa@web.de": {
+      "id": "user_1771200586503",
+      "email": "yazanmousa@web.de",
+      "name": "yazan123",
+      "credits": 10,
+      "createdAt": "2026-02-16T00:09:46.503Z",
+      "passwordHash": "$2b$10$OCZD.Fj2l6KxWZ1WXEQ0qu1rzpyZEFnrRljtX8KTP/J5FUWecx6cy",
+      "deviceId": "43ce7fba04a46453546efbfad24ea207",
+      "isVerified": false,
+      "verificationToken": "351e75a8-0fff-44ba-ae6f-354f042fb6fd"
+    }
+  }
+}

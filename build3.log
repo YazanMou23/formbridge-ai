@@ -1,0 +1,46 @@
+??? Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\package-lock.json
+
+??? Next.js 16.1.6 (webpack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+??? Compiled successfully in 2.6s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/20) ...
+  Generating static pages using 15 workers (5/20) 
+  Generating static pages using 15 workers (10/20) 
+  Generating static pages using 15 workers (15/20) 
+??? Generating static pages using 15 workers (20/20) in 993.2ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+??? ??? /
+??? ??? /_not-found
+??? ?? /api/analyze
+??? ?? /api/auth/login
+??? ?? /api/auth/logout
+??? ?? /api/auth/me
+??? ?? /api/auth/register
+??? ?? /api/auth/verify
+??? ?? /api/credits/deduct
+??? ?? /api/cv/generate
+??? ?? /api/explain
+??? ?? /api/payments/checkout
+??? ?? /api/payments/packages
+??? ?? /api/payments/webhook
+??? ?? /api/translate
+??? ??? /datenschutz
+??? ??? /impressum
+??? ??? /ueber-uns
+
+
+???  (Static)   prerendered as static content
+??  (Dynamic)  server-rendered on demand
+

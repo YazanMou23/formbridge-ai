@@ -1,0 +1,109 @@
+{
+    "app": {
+        "name": "FormBridge AI",
+        "tagline": "Ihr intelligenter Assistent für deutsche Formulare"
+    },
+    "nav": {
+        "home": "Startseite",
+        "credits": "Guthaben",
+        "language": "Sprache"
+    },
+    "hero": {
+        "title": "Deutsche Formulare einfach ausfüllen",
+        "subtitle": "Laden Sie ein Bild des deutschen Formulars hoch, beantworten Sie die Fragen auf Arabisch und erhalten Sie das Formular auf Deutsch ausgefüllt"
+    },
+    "steps": {
+        "upload": "Bild hochladen",
+        "answer": "Fragen beantworten",
+        "download": "Formular herunterladen"
+    },
+    "upload": {
+        "title": "Formularbild hochladen",
+        "subtitle": "Ziehen Sie das Bild hierher oder klicken Sie zur Auswahl",
+        "formats": "Unterstützte Formate: JPG, JPEG, PNG",
+        "maxSize": "Maximale Größe: 10 MB",
+        "remove": "Bild entfernen",
+        "analyze": "Formular analysieren",
+        "analyzing": "Analysiere..."
+    },
+    "questions": {
+        "title": "Formularfragen",
+        "subtitle": "Bitte beantworten Sie die folgenden Fragen auf Arabisch",
+        "germanLabel": "Frage auf Deutsch:",
+        "placeholder": "Schreiben Sie hier Ihre Antwort...",
+        "submit": "Ausgefülltes Formular erstellen",
+        "submitting": "Verarbeitung...",
+        "requiredField": "Dieses Feld ist erforderlich"
+    },
+    "result": {
+        "title": "Ausgefülltes Formular",
+        "subtitle": "Das Formular wurde erfolgreich auf Deutsch ausgefüllt",
+        "download": "Ergebnisse herunterladen",
+        "downloadPDF": "PDF herunterladen",
+        "downloadTXT": "Text herunterladen",
+        "downloadFilledForm": "Ausgefülltes Formular herunterladen",
+        "downloadFilledFormTooltip": "Originalbild mit Antworten herunterladen",
+        "copy": "Antworten kopieren",
+        "copied": "Kopiert!",
+        "newForm": "Neues Formular",
+        "fieldLabel": "Feld",
+        "generatingImage": "Ausgefülltes Formular wird erstellt..."
+    },
+    "credits": {
+        "remaining": "Verbleibendes Guthaben",
+        "cost": "Operationskosten",
+        "insufficient": "Unzureichendes Guthaben",
+        "buy": "Guthaben kaufen",
+        "buyTitle": "Zusätzliches Guthaben kaufen",
+        "buySubtitle": "Wählen Sie das passende Paket für Ihre Bedürfnisse",
+        "mostPopular": "Beliebteste",
+        "creditsLabel": "Credits",
+        "perCredit": "pro Credit",
+        "buyNow": "Jetzt kaufen",
+        "securePayment": "Sichere Zahlung über Stripe",
+        "paymentSuccess": "Zahlung erfolgreich! Das Guthaben wurde Ihrem Konto gutgeschrieben.",
+        "paymentCancelled": "Zahlung abgebrochen."
+    },
+    "errors": {
+        "upload": "Bild-Upload fehlgeschlagen. Bitte versuchen Sie es erneut.",
+        "analyze": "Formularanalyse fehlgeschlagen. Stellen Sie sicher, dass das Bild klar ist.",
+        "submit": "Formularverarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+        "invalidFormat": "Dateiformat nicht unterstützt. Verwenden Sie JPG oder PNG.",
+        "fileTooLarge": "Datei zu groß. Maximum ist 10 MB.",
+        "noQuestions": "Keine Fragen im Formular gefunden.",
+        "apiError": "Serverfehler aufgetreten. Bitte versuchen Sie es später."
+    },
+    "common": {
+        "loading": "Laden...",
+        "retry": "Erneut versuchen",
+        "cancel": "Abbrechen",
+        "back": "Zurück",
+        "next": "Weiter",
+        "close": "Schließen"
+    },
+    "auth": {
+        "loginTitle": "Anmelden",
+        "loginSubtitle": "Geben Sie Ihre Daten ein, um auf Ihr Konto zuzugreifen",
+        "registerTitle": "Konto erstellen",
+        "registerSubtitle": "Registrieren Sie sich für 10 kostenlose Credits",
+        "name": "Name",
+        "namePlaceholder": "Geben Sie Ihren Namen ein",
+        "email": "E-Mail",
+        "emailPlaceholder": "example@email.com",
+        "password": "Passwort",
+        "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "logout": "Abmelden",
+        "noAccount": "Noch kein Konto?",
+        "registerNow": "Jetzt registrieren",
+        "hasAccount": "Bereits ein Konto?",
+        "loginNow": "Jetzt anmelden",
+        "welcome": "Willkommen",
+        "requiredTitle": "Melden Sie sich an, um zu starten",
+        "requiredSubtitle": "Erstellen Sie ein kostenloses Konto oder melden Sie sich an, um FormBridge AI zu nutzen",
+        "feature1": "10 kostenlose Credits bei der Registrierung",
+        "feature2": "KI-Analyse von deutschen Formularen",
+        "feature3": "PDF-Export der Ergebnisse"
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/_global-error/page": "/_global-error",
+  "/api/auth/register/route": "/api/auth/register",
+  "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/me/route": "/api/auth/me",
+  "/api/auth/verify/route": "/api/auth/verify",
+  "/api/analyze/route": "/api/analyze",
+  "/api/cv/generate/route": "/api/cv/generate",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/credits/deduct/route": "/api/credits/deduct",
+  "/api/payments/checkout/route": "/api/payments/checkout",
+  "/api/explain/route": "/api/explain",
+  "/api/payments/webhook/route": "/api/payments/webhook",
+  "/api/translate/route": "/api/translate",
+  "/favicon.ico/route": "/favicon.ico",
+  "/api/payments/packages/route": "/api/payments/packages",
+  "/page": "/",
+  "/impressum/page": "/impressum",
+  "/ueber-uns/page": "/ueber-uns",
+  "/datenschutz/page": "/datenschutz"
+}

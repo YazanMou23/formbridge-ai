@@ -1,0 +1,8 @@
+﻿
+> formbridge-ai@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
