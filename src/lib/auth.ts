@@ -13,15 +13,26 @@ import type { User } from '@/types/auth';
 const JWT_SECRET = process.env.JWT_SECRET || 'formbridge-ai-secret-key-change-in-production';
 const INITIAL_CREDITS = 10;
 
-// Check for ANY valid KV/Redis URL
-const KV_URL_ENV = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || process.env.REDIS_URL;
-const IS_VERCEL = !!KV_URL_ENV;
+// FORCE Vercel mode if any of these are true:
+// 1. KV_REST_API_URL exists
+// 2. UPSTASH_REDIS_REST_URL exists
+// 3. VERCEL env var exists (we are running on Vercel)
+// 4. NODE_ENV is 'production' (we shouldn't use local files in prod)
+const IS_VERCEL = !!(
+    process.env.KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_URL ||
+    process.env.REDIS_URL ||
+    process.env.VERCEL ||
+    process.env.NODE_ENV === 'production'
+);
 
 console.log('[Auth Init] Environment Check:', {
     hasKvUrl: !!process.env.KV_REST_API_URL,
     hasUpstashUrl: !!process.env.UPSTASH_REDIS_REST_URL,
     hasRedisUrl: !!process.env.REDIS_URL,
-    IS_VERCEL
+    isVercelEnv: !!process.env.VERCEL,
+    nodeEnv: process.env.NODE_ENV,
+    IS_VERCEL_DETERMINED: IS_VERCEL
 });
 
 // ----------------------------------------------------------------------------
