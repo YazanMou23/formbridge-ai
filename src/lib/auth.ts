@@ -12,7 +12,17 @@ import type { User } from '@/types/auth';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'formbridge-ai-secret-key-change-in-production';
 const INITIAL_CREDITS = 10;
-const IS_VERCEL = !!process.env.KV_REST_API_URL;
+
+// Check for ANY valid KV/Redis URL
+const KV_URL_ENV = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || process.env.REDIS_URL;
+const IS_VERCEL = !!KV_URL_ENV;
+
+console.log('[Auth Init] Environment Check:', {
+    hasKvUrl: !!process.env.KV_REST_API_URL,
+    hasUpstashUrl: !!process.env.UPSTASH_REDIS_REST_URL,
+    hasRedisUrl: !!process.env.REDIS_URL,
+    IS_VERCEL
+});
 
 // ----------------------------------------------------------------------------
 // Types
