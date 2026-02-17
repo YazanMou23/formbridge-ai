@@ -107,6 +107,9 @@ export async function createUser(name: string, email: string, password: string, 
     const verificationToken = crypto.randomUUID();
     const passwordHash = await bcrypt.hash(password, 10);
 
+    console.log(`[Auth] Creating user ${email}. IS_VERCEL=${IS_VERCEL}`);
+
+    // Data to save
     const newUser: StoredUser = {
         id: `user_${Date.now()}`,
         email,
@@ -115,17 +118,28 @@ export async function createUser(name: string, email: string, password: string, 
         createdAt: new Date().toISOString(),
         passwordHash,
         deviceId,
-        isVerified: true, // AUTO-VERIFY for now to fix email issues
+        isVerified: true,
         verificationToken,
     };
 
     if (IS_VERCEL) {
-        // Save to Vercel KV
-        await kv.set(`user:${email}`, newUser);
-        if (deviceId) await kv.set(`device:${deviceId}`, email);
-        if (verificationToken) await kv.set(`token:${verificationToken}`, email); // Index for verification
+        console.log('[Auth] Saving to Vercel KV...');
+        try {
+            await kv.set(`user:${email}`, newUser);
+            if (deviceId) {
+                console.log(`[Auth] Mapping device ${deviceId} to email`);
+                await kv.set(`device:${deviceId}`, email);
+            }
+            if (verificationToken) await kv.set(`token:${verificationToken}`, email);
+            console.log('[Auth] Successfully saved to KV');
+        } catch (kvError) {
+            console.error('[Auth] CRITICAL ERROR saving to KV:', kvError);
+            // Fallback? No, just throw for now so we see the error
+            throw kvError;
+        }
     } else {
         // Save to Local File
+        console.log('[Auth] Saving to Local File System');
         const users = loadUsersLocal();
         users[email] = newUser;
         saveUsersLocal(users);
