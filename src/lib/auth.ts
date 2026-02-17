@@ -7,8 +7,18 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import { kv } from '@vercel/kv';
+import { kv, createClient } from '@vercel/kv';
 import type { User } from '@/types/auth';
+
+// Manual KV Client Setup (Fix for missing var error)
+let kvClient = kv;
+if (!process.env.KV_REST_API_URL && process.env.UPSTASH_REDIS_REST_URL) {
+    console.log('[Auth Init] Manually initializing KV client with Upstash vars');
+    kvClient = createClient({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN || '',
+    });
+}
 
 const JWT_SECRET = process.env.JWT_SECRET || 'formbridge-ai-secret-key-change-in-production';
 const INITIAL_CREDITS = 10;
@@ -96,7 +106,7 @@ export async function createUser(name: string, email: string, password: string, 
     let existingUser: StoredUser | null = null;
 
     if (IS_VERCEL) {
-        existingUser = await kv.get<StoredUser>(`user:${email}`);
+        existingUser = await kvClient.get<StoredUser>(`user:${email}`);
     } else {
         const users = loadUsersLocal();
         existingUser = users[email] || null;
@@ -110,7 +120,7 @@ export async function createUser(name: string, email: string, password: string, 
     if (deviceId) {
         if (IS_VERCEL) {
             // Check if device ID is already mapped to an email
-            const existingDeviceEmail = await kv.get<string>(`device:${deviceId}`);
+            const existingDeviceEmail = await kvClient.get<string>(`device:${deviceId}`);
             if (existingDeviceEmail) {
                 console.warn(`Blocked registration attempt from duplicate device: ${deviceId}`);
                 throw new Error('This device is already registered. Only one account per device is allowed.');
@@ -146,12 +156,12 @@ export async function createUser(name: string, email: string, password: string, 
     if (IS_VERCEL) {
         console.log('[Auth] Saving to Vercel KV...');
         try {
-            await kv.set(`user:${email}`, newUser);
+            await kvClient.set(`user:${email}`, newUser);
             if (deviceId) {
                 console.log(`[Auth] Mapping device ${deviceId} to email`);
-                await kv.set(`device:${deviceId}`, email);
+                await kvClient.set(`device:${deviceId}`, email);
             }
-            if (verificationToken) await kv.set(`token:${verificationToken}`, email);
+            if (verificationToken) await kvClient.set(`token:${verificationToken}`, email);
             console.log('[Auth] Successfully saved to KV');
         } catch (kvError) {
             console.error('[Auth] CRITICAL ERROR saving to KV:', kvError);
@@ -175,7 +185,7 @@ export async function validateUser(email: string, password: string): Promise<Use
     let user: StoredUser | null = null;
 
     if (IS_VERCEL) {
-        user = await kv.get<StoredUser>(`user:${email}`);
+        user = await kvClient.get<StoredUser>(`user:${email}`);
     } else {
         const users = loadUsersLocal();
         user = users[email] || null;
@@ -199,7 +209,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     let user: StoredUser | null = null;
 
     if (IS_VERCEL) {
-        user = await kv.get<StoredUser>(`user:${email}`);
+        user = await kvClient.get<StoredUser>(`user:${email}`);
     } else {
         const users = loadUsersLocal();
         user = users[email] || null;
@@ -213,11 +223,11 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 
 export async function updateUserCredits(email: string, credits: number): Promise<boolean> {
     if (IS_VERCEL) {
-        const user = await kv.get<StoredUser>(`user:${email}`);
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
         if (!user) return false;
 
         user.credits = credits;
-        await kv.set(`user:${email}`, user);
+        await kvClient.set(`user:${email}`, user);
         return true;
     } else {
         const users = loadUsersLocal();
@@ -233,7 +243,7 @@ export async function updateUserCredits(email: string, credits: number): Promise
 
 export async function deductUserCredits(email: string, amount: number): Promise<{ success: boolean; newCredits: number }> {
     if (IS_VERCEL) {
-        const user = await kv.get<StoredUser>(`user:${email}`);
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
         if (!user) return { success: false, newCredits: 0 };
 
         if (user.credits < amount) {
@@ -241,7 +251,7 @@ export async function deductUserCredits(email: string, amount: number): Promise<
         }
 
         user.credits -= amount;
-        await kv.set(`user:${email}`, user);
+        await kvClient.set(`user:${email}`, user);
         return { success: true, newCredits: user.credits };
     } else {
         const users = loadUsersLocal();
@@ -261,11 +271,11 @@ export async function deductUserCredits(email: string, amount: number): Promise<
 
 export async function addUserCredits(email: string, amount: number): Promise<{ success: boolean; newCredits: number }> {
     if (IS_VERCEL) {
-        const user = await kv.get<StoredUser>(`user:${email}`);
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
         if (!user) return { success: false, newCredits: 0 };
 
         user.credits += amount;
-        await kv.set(`user:${email}`, user);
+        await kvClient.set(`user:${email}`, user);
         return { success: true, newCredits: user.credits };
     } else {
         const users = loadUsersLocal();
@@ -282,17 +292,17 @@ export async function addUserCredits(email: string, amount: number): Promise<{ s
 export async function verifyUserAccount(token: string): Promise<User | null> {
     if (IS_VERCEL) {
         // Use the token index we created during registration
-        const email = await kv.get<string>(`token:${token}`);
+        const email = await kvClient.get<string>(`token:${token}`);
         if (!email) return null;
 
-        const user = await kv.get<StoredUser>(`user:${email}`);
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
         if (!user) return null; // Should not happen if token exists
 
         user.isVerified = true;
         user.verificationToken = undefined;
 
-        await kv.set(`user:${email}`, user);
-        await kv.del(`token:${token}`); // Clean up the token index
+        await kvClient.set(`user:${email}`, user);
+        await kvClient.del(`token:${token}`); // Clean up the token index
 
         const { passwordHash: _, ...safeUser } = user;
         return safeUser;
