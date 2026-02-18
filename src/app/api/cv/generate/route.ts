@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import openai from '@/lib/openai';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const SYSTEM_PROMPT = `You are an expert CV writer and career consultant specializing in the German job market. 
 Your task is to take user input (provided in Arabic) and transform it into a professional, ATS-optimized German CV (Lebenslauf).
@@ -58,48 +57,48 @@ Your task is to take user input (provided in Arabic) and transform it into a pro
 Ensure the JSON is valid and contains no markdown code blocks.`;
 
 export async function POST(request: NextRequest) {
-    try {
-        const body = await request.json();
-        const { personalInfo, experience, education, skills, languages, summary } = body;
+  try {
+    const body = await request.json();
+    const { personalInfo, experience, education, skills, languages, summary } = body;
 
-        if (!personalInfo) {
-            return NextResponse.json({ success: false, error: 'Missing personal info' }, { status: 400 });
-        }
-
-        const userContent = JSON.stringify({
-            personalInfo,
-            summary,
-            experience,
-            education,
-            skills,
-            languages
-        });
-
-        const response = await openai.chat.completions.create({
-            model: 'gpt-4o',
-            messages: [
-                { role: 'system', content: SYSTEM_PROMPT },
-                { role: 'user', content: `Please create a professional German CV from this data:\n\n${userContent}` }
-            ],
-            temperature: 0.3,
-            response_format: { type: "json_object" }
-        });
-
-        const content = response.choices[0]?.message?.content || '{}';
-
-        // Parse JSON safely
-        let cvData;
-        try {
-            cvData = JSON.parse(content);
-        } catch (e) {
-            console.error("Failed to parse OpenAI response", content);
-            return NextResponse.json({ success: false, error: 'Failed to generate valid JSON' }, { status: 500 });
-        }
-
-        return NextResponse.json({ success: true, cvData });
-
-    } catch (error) {
-        console.error('CV Generation error:', error);
-        return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
+    if (!personalInfo) {
+      return NextResponse.json({ success: false, error: 'Missing personal info' }, { status: 400 });
     }
+
+    const userContent = JSON.stringify({
+      personalInfo,
+      summary,
+      experience,
+      education,
+      skills,
+      languages
+    });
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: `Please create a professional German CV from this data:\n\n${userContent}` }
+      ],
+      temperature: 0.3,
+      response_format: { type: "json_object" }
+    });
+
+    const content = response.choices[0]?.message?.content || '{}';
+
+    // Parse JSON safely
+    let cvData;
+    try {
+      cvData = JSON.parse(content);
+    } catch (e) {
+      console.error("Failed to parse OpenAI response", content);
+      return NextResponse.json({ success: false, error: 'Failed to generate valid JSON' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, cvData });
+
+  } catch (error) {
+    console.error('CV Generation error:', error);
+    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
+  }
 }
