@@ -91,10 +91,24 @@ export default function HistoryView({ onBack }: HistoryViewProps) {
             <div className="flex items-center mb-6">
                 <button
                     onClick={onBack}
-                    className="btn btn-ghost mr-4"
-                    style={{ padding: '0.5rem', borderRadius: '50%' }}
+                    className="btn btn-ghost"
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: locale === 'ar' ? '0' : '1rem',
+                        marginLeft: locale === 'ar' ? '1rem' : '0',
+                        padding: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: 'var(--color-neutral-100)'
+                    }}
                 >
-                    {locale === 'ar' ? '➜' : '⬅'}
+                    <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                        {locale === 'ar' ? '→' : '←'}
+                    </span>
                 </button>
                 <h2 className="text-2xl font-bold text-white">
                     {locale === 'ar' ? 'سجل النشاطات' : 'Activity History'}

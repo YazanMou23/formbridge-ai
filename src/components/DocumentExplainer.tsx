@@ -55,16 +55,24 @@ export default function DocumentExplainer({ onBack }: Props) {
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <button
                     onClick={onBack}
+                    className="btn btn-ghost"
                     style={{
-                        background: 'none',
-                        border: 'none',
-                        color: 'var(--color-neutral-300)',
-                        cursor: 'pointer',
-                        marginRight: '1rem',
-                        fontSize: '1.2rem'
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: locale === 'ar' ? '0' : '1rem',
+                        marginLeft: locale === 'ar' ? '1rem' : '0',
+                        padding: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: 'var(--color-neutral-100)'
                     }}
                 >
-                    ←
+                    <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                        {locale === 'ar' ? '→' : '←'}
+                    </span>
                 </button>
                 <h2 className="text-xl font-bold text-white">
                     {locale === 'ar' ? 'شرح المستندات' : 'Dokumentenerklärung'}

@@ -200,8 +200,26 @@ export default function PdfEditor({ onBack }: Props) {
             <div className="animate-fade-in">
                 <div style={{ padding: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <button onClick={onBack} className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem' }}>
-                            ← {locale === 'ar' ? 'الرجوع' : 'Zurück'}
+                        <button
+                            onClick={onBack}
+                            className="btn btn-ghost"
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginRight: locale === 'ar' ? '0' : '1rem',
+                                marginLeft: locale === 'ar' ? '1rem' : '0',
+                                padding: 0,
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'var(--color-neutral-100)'
+                            }}
+                        >
+                            <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                                {locale === 'ar' ? '→' : '←'}
+                            </span>
                         </button>
                         <h2 style={{ color: 'white', margin: 0 }}>
                             {locale === 'ar' ? 'تحرير المستند' : 'Dokument bearbeiten'}
@@ -224,10 +242,24 @@ export default function PdfEditor({ onBack }: Props) {
             <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
                 <button
                     onClick={onBack}
-                    className="btn btn-secondary"
-                    style={{ marginRight: '1rem', padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}
+                    className="btn btn-ghost"
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: locale === 'ar' ? '0' : '1rem',
+                        marginLeft: locale === 'ar' ? '1rem' : '0',
+                        padding: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: 'var(--color-neutral-100)'
+                    }}
                 >
-                    ← {locale === 'ar' ? 'الرجوع' : 'Zurück'}
+                    <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                        {locale === 'ar' ? '→' : '←'}
+                    </span>
                 </button>
                 <h2 style={{ color: 'white', margin: 0 }}>
                     {locale === 'ar' ? 'محرر PDF & التوقيع' : 'PDF Editor & Unterschrift'}

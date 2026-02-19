@@ -170,10 +170,24 @@ export default function ImageToPdf({ onBack }: Props) {
             <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
                 <button
                     onClick={onBack}
-                    className="btn btn-secondary"
-                    style={{ marginRight: '1rem', padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}
+                    className="btn btn-ghost"
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: locale === 'ar' ? '0' : '1rem',
+                        marginLeft: locale === 'ar' ? '1rem' : '0',
+                        padding: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: 'var(--color-neutral-100)'
+                    }}
                 >
-                    ← {locale === 'ar' ? 'الرجوع' : 'Zurück'}
+                    <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                        {locale === 'ar' ? '→' : '←'}
+                    </span>
                 </button>
                 <h2 style={{ color: 'white', margin: 0 }}>
                     {locale === 'ar' ? 'تحويل صورة إلى PDF' : 'Bild zu PDF'}

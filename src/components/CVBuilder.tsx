@@ -203,7 +203,27 @@ export default function CVBuilder({ onBack, user, userCredits, setUserCredits, o
         return (
             <div className="glass-card animate-scale-in">
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <button onClick={onBack} style={{ background: 'none', border: 'none', color: 'var(--color-neutral-300)', cursor: 'pointer', marginRight: '1rem', fontSize: '1.2rem' }}>←</button>
+                    <button
+                        onClick={onBack}
+                        className="btn btn-ghost"
+                        style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: locale === 'ar' ? '0' : '1rem',
+                            marginLeft: locale === 'ar' ? '1rem' : '0',
+                            padding: 0,
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            color: 'var(--color-neutral-100)'
+                        }}
+                    >
+                        <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                            {locale === 'ar' ? '→' : '←'}
+                        </span>
+                    </button>
                     <h2 className="text-xl font-bold text-white">{locale === 'ar' ? 'إنشاء سيرة ذاتية' : 'Lebenslauf erstellen'}</h2>
                 </div>
 
@@ -235,7 +255,27 @@ export default function CVBuilder({ onBack, user, userCredits, setUserCredits, o
         return (
             <div className="glass-card animate-scale-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <button onClick={() => setStep('type-selection')} style={{ background: 'none', border: 'none', color: 'var(--color-neutral-300)', cursor: 'pointer', marginRight: '1rem', fontSize: '1.2rem' }}>←</button>
+                    <button
+                        onClick={() => setStep('type-selection')}
+                        className="btn btn-ghost"
+                        style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: locale === 'ar' ? '0' : '1rem',
+                            marginLeft: locale === 'ar' ? '1rem' : '0',
+                            padding: 0,
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            color: 'var(--color-neutral-100)'
+                        }}
+                    >
+                        <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                            {locale === 'ar' ? '→' : '←'}
+                        </span>
+                    </button>
                     <h2 className="text-xl font-bold text-white">{locale === 'ar' ? 'أدخل معلوماتك' : 'Geben Sie Ihre Daten ein'}</h2>
                 </div>
 
@@ -362,7 +402,27 @@ export default function CVBuilder({ onBack, user, userCredits, setUserCredits, o
             <div className="glass-card animate-scale-in">
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', justifyContent: 'space-between' }}>
                     <div className="flex items-center">
-                        <button onClick={() => setStep('form')} style={{ background: 'none', border: 'none', color: 'var(--color-neutral-300)', cursor: 'pointer', marginRight: '1rem', fontSize: '1.2rem' }}>←</button>
+                        <button
+                            onClick={() => setStep('form')}
+                            className="btn btn-ghost"
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginRight: locale === 'ar' ? '0' : '1rem',
+                                marginLeft: locale === 'ar' ? '1rem' : '0',
+                                padding: 0,
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'var(--color-neutral-100)'
+                            }}
+                        >
+                            <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+                                {locale === 'ar' ? '→' : '←'}
+                            </span>
+                        </button>
                         <h2 className="text-xl font-bold text-white">{locale === 'ar' ? 'سيرتك الذاتية جاهزة!' : 'Ihr Lebenslauf ist fertig!'}</h2>
                     </div>
                 </div>
