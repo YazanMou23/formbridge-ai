@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import openai from '@/lib/openai';
+import { verifyToken } from '@/lib/auth';
+import { logUserHistory } from '@/lib/history';
 
 
 const SYSTEM_PROMPT = `You are a helpful and friendly assistant who explains German official documents in simple Syrian Arabic dialect (اللهجة السورية).
@@ -28,6 +30,13 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ success: false, error: 'No image provided' }, { status: 400 });
         }
 
+        const token = request.cookies.get('auth_token')?.value;
+        let userEmail: string | null = null;
+        if (token) {
+            const decoded = verifyToken(token);
+            if (decoded) userEmail = decoded.email;
+        }
+
         const response = await openai.chat.completions.create({
             model: 'gpt-4o',
             messages: [
@@ -51,6 +60,15 @@ export async function POST(request: NextRequest) {
         });
 
         const explanation = response.choices[0]?.message?.content || "عذراً، ما قدرت افهم المستند.";
+
+        if (userEmail) {
+            await logUserHistory(
+                userEmail,
+                'explain',
+                'Explained document',
+                'success'
+            );
+        }
 
         return NextResponse.json({ success: true, explanation });
 

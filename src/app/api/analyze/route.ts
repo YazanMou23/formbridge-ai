@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import openai from '@/lib/openai';
+import { verifyToken, getUserByEmail } from '@/lib/auth';
+import { logUserHistory } from '@/lib/history';
 
 
 // System prompt focused on PRECISE field detection with pre-filled field awareness
@@ -140,6 +142,14 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ success: false, error: 'No image provided' }, { status: 400 });
         }
 
+        const token = request.cookies.get('auth_token')?.value;
+        let userEmail: string | null = null;
+
+        if (token) {
+            const decoded = verifyToken(token);
+            if (decoded) userEmail = decoded.email;
+        }
+
         // Analyze form with enhanced detection
         const analysisResponse = await openai.chat.completions.create({
             model: 'gpt-4o',
@@ -251,6 +261,16 @@ export async function POST(request: NextRequest) {
             prefilled: f.prefilled,
             existingValue: f.existingValue
         })));
+
+        if (userEmail) {
+            await logUserHistory(
+                userEmail,
+                'analyze',
+                `Analyzed form: ${parsed.formTitle || 'Unknown Form'}`,
+                'success',
+                { detectedFieldsCount: processedFields.length }
+            );
+        }
 
         return NextResponse.json({
             success: true,

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import openai from '@/lib/openai';
+import { verifyToken } from '@/lib/auth';
+import { logUserHistory } from '@/lib/history';
 
 
 const SYSTEM_PROMPT = `You are a professional Arabic to German translator specialized in official German forms.
@@ -29,6 +31,13 @@ export async function POST(request: NextRequest) {
 
         if (!answers || !Array.isArray(answers)) {
             return NextResponse.json({ success: false, error: 'Invalid answers' }, { status: 400 });
+        }
+
+        const token = request.cookies.get('auth_token')?.value;
+        let userEmail: string | null = null;
+        if (token) {
+            const decoded = verifyToken(token);
+            if (decoded) userEmail = decoded.email;
         }
 
         // Log incoming answers for debugging
@@ -77,6 +86,16 @@ export async function POST(request: NextRequest) {
         if (!parsed.translations || !Array.isArray(parsed.translations)) {
             console.error('No translations array in response');
             return NextResponse.json({ success: false, error: 'Invalid translation format' }, { status: 500 });
+        }
+
+        if (userEmail) {
+            await logUserHistory(
+                userEmail,
+                'translate',
+                `Translated ${parsed.translations.length} fields`,
+                'success',
+                { fieldCount: parsed.translations.length }
+            );
         }
 
         return NextResponse.json({ success: true, translations: parsed.translations });

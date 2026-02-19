@@ -12,6 +12,7 @@ import DocumentExplainer from '@/components/DocumentExplainer';
 import CVBuilder from '@/components/CVBuilder';
 import PdfEditor from '@/components/PdfEditor';
 import ImageToPdf from '@/components/ImageToPdf';
+import HistoryView from '@/components/HistoryView';
 import type { User } from '@/types/auth';
 
 function HomePageContent() {
@@ -403,6 +404,41 @@ function HomePageContent() {
                     </p>
                   </div>
                 </div>
+                {/* 6. History */}
+                <div
+                  className="feature-card glass-card hover-lift"
+                  onClick={() => setSelectedFeature('history')}
+                  style={{
+                    cursor: 'pointer',
+                    padding: '1.5rem',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: locale === 'ar' ? 'right' : 'left',
+                    position: 'relative'
+                  }}
+                >
+                  <div className="feature-icon" style={{
+                    background: 'var(--color-primary-500)', // Different shade or color
+                    width: '56px', height: '56px', borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                    [locale === 'ar' ? 'marginLeft' : 'marginRight']: '1.5rem',
+                    fontSize: '1.75rem'
+                  }}>
+                    🕰️
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: 'white' }}>
+                      {locale === 'ar' ? 'سجل النشاطات' : 'Aktivitätsverlauf'}
+                    </h3>
+                    <p style={{ color: 'var(--color-neutral-400)', margin: 0, fontSize: '0.95rem' }}>
+                      {locale === 'ar'
+                        ? 'راجع جميع النماذج والمستندات التي قمت بمعالجتها'
+                        : 'Sehen Sie sich alle Ihre verarbeiteten Formulare und Dokumente an'}
+                    </p>
+                  </div>
+                </div>
               </div>
             ) : (
               /* Active Feature View */
@@ -439,6 +475,10 @@ function HomePageContent() {
 
                 {selectedFeature === 'image-pdf' && (
                   <ImageToPdf onBack={() => setSelectedFeature(null)} />
+                )}
+
+                {selectedFeature === 'history' && (
+                  <HistoryView onBack={() => setSelectedFeature(null)} />
                 )}
               </div>
             )}
