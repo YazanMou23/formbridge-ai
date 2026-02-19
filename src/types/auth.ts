@@ -11,6 +11,7 @@ export interface User {
     isVerified?: boolean;
     verificationToken?: string;
     deviceId?: string;
+    photoUrl?: string;
 }
 
 export interface AuthState {

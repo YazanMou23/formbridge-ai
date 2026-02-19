@@ -13,9 +13,10 @@ interface Props {
     onLoginClick: () => void;
     onLogout: () => void;
     onBuyCredits: () => void;
+    onEditProfile: () => void;
 }
 
-export default function Header({ locale, onLocaleChange, credits, user, onLoginClick, onLogout, onBuyCredits }: Props) {
+export default function Header({ locale, onLocaleChange, credits, user, onLoginClick, onLogout, onBuyCredits, onEditProfile }: Props) {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
@@ -63,7 +64,13 @@ export default function Header({ locale, onLocaleChange, credits, user, onLoginC
                     {user ? (
                         <div className="user-menu">
                             <button className="auth-btn" onClick={() => setShowMenu(!showMenu)}>
-                                <span className="auth-btn__avatar">{user.name.charAt(0).toUpperCase()}</span>
+                                <span className="auth-btn__avatar" style={{ overflow: 'hidden' }}>
+                                    {user.photoUrl ? (
+                                        <img src={user.photoUrl} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) : (
+                                        user.name.charAt(0).toUpperCase()
+                                    )}
+                                </span>
                                 <span>{user.name}</span>
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M6 9l6 6 6-6" />
@@ -82,6 +89,12 @@ export default function Header({ locale, onLocaleChange, credits, user, onLoginC
                                                 <path d="M12 6v12M6 12h12" />
                                             </svg>
                                             {t(locale, 'credits.buy')}
+                                        </button>
+                                        <button className="user-menu__item" onClick={() => { onEditProfile(); setShowMenu(false); }}>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                            {t(locale, 'auth.editProfile')}
                                         </button>
                                         <button className="user-menu__item user-menu__item--danger" onClick={() => { onLogout(); setShowMenu(false); }}>
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -13,6 +13,7 @@ import CVBuilder from '@/components/CVBuilder';
 import PdfEditor from '@/components/PdfEditor';
 import ImageToPdf from '@/components/ImageToPdf';
 import HistoryView from '@/components/HistoryView';
+import ProfileModal from '@/components/ProfileModal';
 import type { User } from '@/types/auth';
 
 function HomePageContent() {
@@ -27,6 +28,7 @@ function HomePageContent() {
   const [authLoading, setAuthLoading] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showCreditsModal, setShowCreditsModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [userCredits, setUserCredits] = useState(credits);
 
   // Payment status
@@ -145,6 +147,7 @@ function HomePageContent() {
         onLoginClick={() => setShowAuthModal(true)}
         onLogout={handleLogout}
         onBuyCredits={() => setShowCreditsModal(true)}
+        onEditProfile={() => setShowProfileModal(true)}
       />
 
       <main className="container">
@@ -505,6 +508,15 @@ function HomePageContent() {
           setShowAuthModal(true);
         }}
       />
+
+      {showProfileModal && user && (
+        <ProfileModal
+          user={user}
+          locale={locale}
+          onClose={() => setShowProfileModal(false)}
+          onUpdate={(updatedUser) => setUser(updatedUser)}
+        />
+      )}
     </>
   );
 }

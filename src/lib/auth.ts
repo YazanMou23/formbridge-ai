@@ -339,3 +339,111 @@ export function verifyToken(token: string): { id: string; email: string } | null
         return null;
     }
 }
+
+export async function updateUserProfile(
+    currentEmail: string,
+    updates: { name?: string; email?: string; photoUrl?: string }
+): Promise<{ success: boolean; user?: User; error?: string }> {
+    console.log(`[Auth] Updating user profile for ${currentEmail}`, updates);
+
+    let user: StoredUser | null = null;
+    let usersLocal: Record<string, StoredUser> = {};
+
+    // 1. Load User
+    if (IS_VERCEL) {
+        user = await kvClient.get<StoredUser>(`user:${currentEmail}`);
+    } else {
+        usersLocal = loadUsersLocal();
+        user = usersLocal[currentEmail];
+    }
+
+    if (!user) {
+        return { success: false, error: 'User not found' };
+    }
+
+    // 2. Prepare Updates
+    const newName = updates.name || user.name;
+    const newPhotoUrl = updates.photoUrl !== undefined ? updates.photoUrl : user.photoUrl;
+    const newEmail = updates.email && updates.email !== currentEmail ? updates.email : currentEmail;
+
+    // Check Email Availability
+    if (newEmail !== currentEmail) {
+        let exists = false;
+        if (IS_VERCEL) {
+            // In KV, check if key exists
+            exists = (await kvClient.exists(`user:${newEmail}`)) === 1;
+        } else {
+            exists = !!usersLocal[newEmail];
+        }
+
+        if (exists) {
+            return { success: false, error: 'Email already in use' };
+        }
+    }
+
+    const updatedUser: StoredUser = {
+        ...user,
+        name: newName,
+        email: newEmail,
+        photoUrl: newPhotoUrl,
+    };
+
+    // 3. Save Changes
+    if (IS_VERCEL) {
+        if (newEmail !== currentEmail) {
+            // Transaction-like sequence
+            await kvClient.set(`user:${newEmail}`, updatedUser);
+            await kvClient.del(`user:${currentEmail}`);
+
+            // Update Device Mapping
+            if (user.deviceId) {
+                await kvClient.set(`device:${user.deviceId}`, newEmail);
+            }
+
+            // Migrate History
+            try {
+                const historyKey = `history:${currentEmail}`;
+                const newHistoryKey = `history:${newEmail}`;
+                // Check if history exists
+                const historyExists = await kvClient.exists(historyKey);
+                if (historyExists) {
+                    await kvClient.rename(historyKey, newHistoryKey);
+                }
+            } catch (e) {
+                console.warn('History migration failed', e);
+            }
+
+        } else {
+            await kvClient.set(`user:${currentEmail}`, updatedUser);
+        }
+    } else {
+        // Local File Storage
+        if (newEmail !== currentEmail) {
+            usersLocal[newEmail] = updatedUser;
+            delete usersLocal[currentEmail];
+
+            // Migrate History Local
+            try {
+                const HISTORY_FILE = path.join(DATA_DIR, 'history.json');
+                if (fs.existsSync(HISTORY_FILE)) {
+                    const historyData = JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf-8'));
+                    if (historyData[currentEmail]) {
+                        historyData[newEmail] = historyData[currentEmail];
+                        delete historyData[currentEmail];
+                        fs.writeFileSync(HISTORY_FILE, JSON.stringify(historyData, null, 2), 'utf-8');
+                    }
+                }
+            } catch (e) {
+                console.warn('History migration failed locally', e);
+            }
+
+        } else {
+            usersLocal[currentEmail] = updatedUser;
+        }
+        saveUsersLocal(usersLocal);
+    }
+
+    // Clean return
+    const { passwordHash: _, ...safeUser } = updatedUser;
+    return { success: true, user: safeUser };
+}
