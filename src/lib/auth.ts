@@ -447,3 +447,30 @@ export async function updateUserProfile(
     const { passwordHash: _, ...safeUser } = updatedUser;
     return { success: true, user: safeUser };
 }
+
+export async function getAllUsers(): Promise<User[]> {
+    if (IS_VERCEL) {
+        // Warning: KEYS is expensive in production Redis, but acceptable for smaller user bases
+        // For larger scale, use SCAN or maintain a separate Set of user IDs
+        const keys = await kvClient.keys('user:*');
+        if (!keys || keys.length === 0) return [];
+
+        const users: User[] = [];
+        // Batch get would be better (mget), but types need handling
+        // Pipelining could also be used
+        for (const key of keys) {
+            const user = await kvClient.get<StoredUser>(key);
+            if (user) {
+                const { passwordHash: _, ...safeUser } = user;
+                users.push(safeUser);
+            }
+        }
+        return users;
+    } else {
+        const usersMap = loadUsersLocal();
+        return Object.values(usersMap).map(user => {
+            const { passwordHash: _, ...safeUser } = user;
+            return safeUser;
+        });
+    }
+}
