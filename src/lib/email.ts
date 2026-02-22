@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
+    host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+    port: parseInt(process.env.SMTP_PORT || '465'),
+    secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : true, // Default to true for port 465
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: process.env.SMTP_USER || 'info@meinedienstleistungen.de',
+        pass: process.env.SMTP_PASS || 'Seaways1Yazan2.',
     },
 });
 
@@ -14,7 +14,7 @@ export async function sendVerificationEmail(email: string, token: string) {
     const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/auth/verify?token=${token}`;
 
     const mailOptions = {
-        from: process.env.SMTP_FROM || '"FormBridge AI" <noreply@formbridge.ai>',
+        from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',
         to: email,
         subject: 'Verify your email address - FormBridge AI',
         html: `
@@ -33,15 +33,7 @@ export async function sendVerificationEmail(email: string, token: string) {
     };
 
     try {
-        if (!process.env.SMTP_USER) {
-            console.log('---------------------------------------------------');
-            console.log('📧 MOCK EMAIL SEND (Configure SMTP to send real emails)');
-            console.log(`To: ${email}`);
-            console.log(`Subject: ${mailOptions.subject}`);
-            console.log(`Link: ${verificationLink}`);
-            console.log('---------------------------------------------------');
-            return true;
-        }
+        // Send real email using configured transport
         await transporter.sendMail(mailOptions);
         return true;
     } catch (error) {
@@ -52,7 +44,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 
 export async function sendWelcomeEmail(email: string, name: string) {
     const mailOptions = {
-        from: process.env.SMTP_FROM || '"FormBridge AI" <noreply@formbridge.ai>',
+        from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',
         to: email,
         subject: 'Welcome to FormBridge AI! 🎉',
         html: `
@@ -78,14 +70,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
     };
 
     try {
-        if (!process.env.SMTP_USER) {
-            console.log('---------------------------------------------------');
-            console.log('📧 MOCK EMAIL SEND (Welcome Email)');
-            console.log(`To: ${email}`);
-            console.log(`Subject: ${mailOptions.subject}`);
-            console.log('---------------------------------------------------');
-            return true;
-        }
+        // Send real email using configured transport
         await transporter.sendMail(mailOptions);
         return true;
     } catch (error) {
@@ -183,13 +168,7 @@ export async function sendRemarketingEmail(email: string) {
     };
 
     try {
-        if (!process.env.SMTP_USER) {
-            console.log('---------------------------------------------------');
-            console.log('📧 MOCK EMAIL SEND (Remarketing Email)');
-            console.log(`To: ${email}`);
-            console.log('---------------------------------------------------');
-            return true;
-        }
+        // Send real email using configured transport
         await transporter.sendMail(mailOptions);
         return true;
     } catch (error) {

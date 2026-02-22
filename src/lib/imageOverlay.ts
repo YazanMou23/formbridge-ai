@@ -100,23 +100,25 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                 // --- Improved Font Sizing & Positioning ---
 
                 // Calculate max font size that fits in the box height (with some padding)
-                const maxFontHeight = pixelHeight * 0.8; // Use 80% of box height
+                const maxFontHeight = pixelHeight * 0.75; // Use 75% of box height
                 // Use the smaller of: global scaled font size OR box-constrained font size
                 // But ensure it doesn't get ridiculously small (min 8px)
                 const finalFontSize = Math.max(10, Math.min(scaledFontSize, maxFontHeight));
 
                 ctx.font = `${finalFontSize}px ${fontFamily}`;
-                ctx.textBaseline = 'middle'; // Center vertically
+                // Use 'alphabetic' baseline — text sits on the line like real handwriting
+                ctx.textBaseline = 'alphabetic';
                 ctx.textAlign = 'left';
                 ctx.fillStyle = fontColor;
 
-                // Padding
-                const paddingScale = img.width / 1000;
-                const paddingX = 5 * paddingScale;
+                // Fixed small horizontal padding (3px) — avoids text touching field border
+                const paddingX = 3;
 
                 const textX = pixelX + paddingX;
-                // Center vertically in the box
-                let textY = pixelY + (pixelHeight / 2);
+                // Position text at ~78% of the field height from the top.
+                // This places the text baseline near the bottom of the field,
+                // matching how answers are written on form lines.
+                const textY = pixelY + (pixelHeight * 0.78);
 
                 const maxTextWidth = Math.max(0, pixelWidth - (paddingX * 2));
 
@@ -157,14 +159,14 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                     const lineHeight = finalFontSize * 1.2;
                     const totalHeight = lines.length * lineHeight;
 
-                    // Start Y: Middle of box - half of total text block height + half of first line (since baseline is middle? No, baseline middle applies to single line)
-                    // Let's switch to top baseline for multiline to be safe
+                    // Use 'top' baseline for multiline so we can stack lines downward
                     ctx.textBaseline = 'top';
-                    let currentY = pixelY + (pixelHeight - totalHeight) / 2;
+                    // Start from the top of the box with a small top padding
+                    let currentY = pixelY + Math.max(2, (pixelHeight - totalHeight) / 2);
 
-                    // If box is too small for multiple lines, top align
+                    // If box is too small for multiple lines, just start from top
                     if (totalHeight > pixelHeight) {
-                        currentY = pixelY + (2 * paddingScale);
+                        currentY = pixelY + 2;
                     }
 
                     lines.forEach(l => {
@@ -172,8 +174,11 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                         currentY += lineHeight;
                     });
 
+                    // Restore baseline for next field
+                    ctx.textBaseline = 'alphabetic';
+
                 } else {
-                    // Single line - just draw it centered
+                    // Single line — text sits on the baseline at ~78% of box height
                     ctx.fillText(field.germanAnswer, textX, textY);
                 }
             });
