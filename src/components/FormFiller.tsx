@@ -264,6 +264,8 @@ export default function FormFiller({
                     },
                     prefilled: false,
                     existingValue: null,
+                    directPlacement: true,
+                    fieldFontSize: box.fontSize,
                 };
             });
 

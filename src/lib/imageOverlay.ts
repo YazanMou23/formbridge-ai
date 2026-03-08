@@ -10,6 +10,8 @@ export interface FieldWithAnswer {
     position?: FieldPosition;
     prefilled?: boolean;         // Whether this field was already filled
     existingValue?: string | null; // Original value if pre-filled
+    directPlacement?: boolean;   // If true, text is drawn AT (x,y) with no offset
+    fieldFontSize?: number;      // Per-field font size override
 }
 
 export interface OverlayOptions {
@@ -85,6 +87,39 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                 const pixelWidth = (width / 100) * img.width;
                 const pixelHeight = (height / 100) * img.height;
 
+                // ── Direct Placement Mode ──
+                // When the user manually placed text in the editor via drag-and-drop,
+                // the (x,y) represents exactly where the text should appear.
+                // No box-based offset or wrapping is applied.
+                if (field.directPlacement) {
+                    const directFontSize = field.fieldFontSize
+                        ? Math.max(10, field.fieldFontSize * baseFontScale)
+                        : Math.max(10, scaledFontSize);
+
+                    ctx.font = `bold ${directFontSize}px ${fontFamily}`;
+                    ctx.textBaseline = 'top';
+                    ctx.textAlign = 'left';
+                    ctx.fillStyle = fontColor;
+
+                    if (debugMode) {
+                        ctx.strokeStyle = 'rgba(0, 128, 255, 0.8)';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(pixelX, pixelY, pixelWidth || 100, pixelHeight || 20);
+                        ctx.fillStyle = 'rgba(0, 128, 255, 0.9)';
+                        ctx.font = 'bold 10px Arial';
+                        ctx.fillText(`#${fieldIndex + 1} (direct)`, pixelX, pixelY - 12);
+                        ctx.fillStyle = fontColor;
+                        ctx.font = `bold ${directFontSize}px ${fontFamily}`;
+                    }
+
+                    ctx.fillText(field.germanAnswer, pixelX, pixelY);
+                    return;
+                }
+
+                // ── Standard Field-box Mode ──
+                // For AI-detected fields: x,y is the top-left of the field box,
+                // and text is positioned inside the box.
+
                 // Debug mode: draw field boundaries
                 if (debugMode) {
                     ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
@@ -132,11 +167,6 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                 // Check text width
                 const metrics = ctx.measureText(field.germanAnswer);
 
-                // If text is wider than box, we might need to wrap or scale down further?
-                // For now, let's try basic wrapping if it's really long, 
-                // but if it's just a bit long, maybe basic wrapping is best.
-                // However, vertical centering with wrapping is tricky.
-
                 if (metrics.width > maxTextWidth) {
                     // Multi-line handling
                     const words = field.germanAnswer.split(' ');
@@ -155,16 +185,12 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                     }
                     lines.push(line.trim());
 
-                    // If multiple lines, we need to adjust Y to start higher
                     const lineHeight = finalFontSize * 1.2;
                     const totalHeight = lines.length * lineHeight;
 
-                    // Use 'top' baseline for multiline so we can stack lines downward
                     ctx.textBaseline = 'top';
-                    // Start from the top of the box with a small top padding
                     let currentY = pixelY + Math.max(2, (pixelHeight - totalHeight) / 2);
 
-                    // If box is too small for multiple lines, just start from top
                     if (totalHeight > pixelHeight) {
                         currentY = pixelY + 2;
                     }
@@ -174,7 +200,6 @@ export async function overlayFieldsOnImage(options: OverlayOptions): Promise<str
                         currentY += lineHeight;
                     });
 
-                    // Restore baseline for next field
                     ctx.textBaseline = 'alphabetic';
 
                 } else {

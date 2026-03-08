@@ -61,6 +61,8 @@ export interface FilledField {
     position?: FieldPosition;  // Position for overlay on original image
     prefilled?: boolean;       // Whether this was a pre-filled field
     existingValue?: string | null; // Original value if pre-filled
+    directPlacement?: boolean;   // If true, overlay renders text AT (x,y) with no offset
+    fieldFontSize?: number;      // Per-field font size for overlay rendering
 }
 
 // ─────────────────── API Types ───────────────────
