@@ -2195,3 +2195,118 @@ p {
 .user-menu__item svg {
   flex-shrink: 0;
 }
+
+/* ─────────────────── Direct Form Editor ─────────────────── */
+.direct-editor-container {
+  background: var(--color-neutral-900);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-2xl);
+}
+
+.direct-editor-container .btn {
+  font-size: 0.8125rem;
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+/* Sidebar Styling for Editor */
+.editor-sidebar-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.editor-sidebar-card:hover:not(:active) {
+  border-color: var(--color-primary-400) !important;
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .editor-sidebar-card:hover:not(:active) {
+  transform: translateX(-4px);
+}
+
+/* ─────────────────── Final Mobile Fixes ─────────────────── */
+@media (max-width: 639px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .main-content {
+    padding: 0 var(--spacing-sm) var(--spacing-2xl);
+  }
+
+  .hero__title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero__subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Compact header on mobile */
+  .header__logo-icon {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+  }
+
+  .header__logo {
+    font-size: 1.125rem;
+  }
+
+  /* Questions Form adjustments */
+  .question-card {
+    padding: var(--spacing-lg);
+  }
+
+  .question-card__arabic {
+    font-size: 1rem;
+  }
+
+  /* Result Preview mobile scaling */
+  .result-preview {
+    padding: var(--spacing-lg);
+  }
+
+  .result-actions__download,
+  .result-actions__other {
+    gap: var(--spacing-xs);
+  }
+
+  .result-actions__download .btn,
+  .result-actions__other .btn {
+    min-width: 120px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.875rem;
+  }
+
+  /* Position Adjuster mobile */
+  .position-adjuster-overlay {
+    padding: var(--spacing-xs) !important;
+  }
+
+  .position-adjuster-overlay h2 {
+    font-size: 0.9rem !important;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Scrollbar styling for sidebar */
+.direct-editor-container ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.direct-editor-container ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.direct-editor-container ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.direct-editor-container ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

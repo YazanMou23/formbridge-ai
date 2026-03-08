@@ -63,6 +63,7 @@ export interface FilledField {
     existingValue?: string | null; // Original value if pre-filled
     directPlacement?: boolean;   // If true, overlay renders text AT (x,y) with no offset
     fieldFontSize?: number;      // Per-field font size for overlay rendering
+    signatureImage?: string;     // Base64 signature image if type is signature
 }
 
 // ─────────────────── API Types ───────────────────

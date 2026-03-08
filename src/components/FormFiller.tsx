@@ -204,6 +204,8 @@ export default function FormFiller({
     interface TextBox {
         id: string;
         text: string;
+        type?: 'text' | 'signature';
+        imageUrl?: string;
         x: number;
         y: number;
         width?: number;
@@ -245,16 +247,17 @@ export default function FormFiller({
             }
 
             const filledFields = textBoxes.map(box => {
-                const translation = translations.find((tr: { fieldId: string }) =>
+                const isSignature = box.type === 'signature';
+                const translation = isSignature ? null : translations.find((tr: { fieldId: string }) =>
                     tr.fieldId === box.id ||
                     tr.fieldId?.toLowerCase() === box.id?.toLowerCase()
                 );
 
-                const germanAnswer = translation?.germanAnswer || box.text;
+                const germanAnswer = isSignature ? 'Signature' : (translation?.germanAnswer || box.text);
 
                 return {
                     id: box.id,
-                    germanQuestion: box.germanQuestion || 'Freitext',
+                    germanQuestion: isSignature ? (locale === 'ar' ? 'التوقيع' : 'Unterschrift') : (box.germanQuestion || 'Freitext'),
                     germanAnswer: germanAnswer,
                     position: {
                         x: box.x,
@@ -266,6 +269,7 @@ export default function FormFiller({
                     existingValue: null,
                     directPlacement: true,
                     fieldFontSize: box.fontSize,
+                    signatureImage: isSignature ? box.imageUrl : undefined,
                 };
             });
 

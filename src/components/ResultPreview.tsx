@@ -45,6 +45,7 @@ export default function ResultPreview({ result, onNewForm, locale, onAdjustPosit
                     existingValue: field.existingValue,
                     directPlacement: field.directPlacement,
                     fieldFontSize: field.fieldFontSize,
+                    signatureImage: field.signatureImage,
                 })),
                 fontSize: 14,
                 fontColor: '#0000AA',  // Blue for preview
@@ -101,6 +102,7 @@ export default function ResultPreview({ result, onNewForm, locale, onAdjustPosit
                     existingValue: field.existingValue,
                     directPlacement: field.directPlacement,
                     fieldFontSize: field.fieldFontSize,
+                    signatureImage: field.signatureImage,
                 })),
                 fontSize: 14,
                 fontColor: '#000000',
