@@ -1,0 +1,223 @@
+{
+    "Index": {
+        "title": "Clean Up",
+        "description": "Professional cleaning services across Germany"
+    },
+    "Hero": {
+        "badge": "Premium Cleaning Service Germany",
+        "headline": "Professional <span>Cleaning Services</span> Nationwide in Germany",
+        "subheadline": "Clean Up provides reliable and high-quality cleaning solutions for businesses and private clients.",
+        "cta_request": "Request an offer",
+        "cta_services": "Our Services",
+        "features": {
+            "nationwide": "Nationwide",
+            "pros": "Pros",
+            "eco": "Eco-Friendly"
+        },
+        "guarantee": "Guaranteed Cleanliness"
+    },
+    "WhyChooseUs": {
+        "subtitle": "Quality & Trust",
+        "title": "Why Clean Up?",
+        "cards": {
+            "reliable": {
+                "title": "Reliable",
+                "description": "Punctual and conscientious."
+            },
+            "nationwide": {
+                "title": "Nationwide Available",
+                "description": "We clean everywhere in Germany."
+            },
+            "professional": {
+                "title": "Professional Team",
+                "description": "Trained professionals for every task."
+            },
+            "eco": {
+                "title": "Eco-Friendly",
+                "description": "Gentle cleaning with ecological agents."
+            }
+        }
+    },
+    "Services": {
+        "subtitle": "Our Expertise",
+        "main_title": "Excellent cleaning solutions for every area",
+        "title": "Our Services",
+        "view_more": "View all services",
+        "learn_more": "Learn more",
+        "items": {
+            "office": {
+                "title": "Office Cleaning",
+                "description": "Cleaning of offices, meeting rooms, and workspaces."
+            },
+            "building": {
+                "title": "Building Cleaning",
+                "description": "Commercial buildings and residential complexes."
+            },
+            "glass": {
+                "title": "Glass Cleaning",
+                "description": "Windows, glass facades, and shop windows."
+            },
+            "industrial": {
+                "title": "Industrial Cleaning",
+                "description": "Factories, warehouses, and production facilities."
+            },
+            "medical": {
+                "title": "Practice Cleaning",
+                "description": "Medical offices, clinics, and laboratories."
+            }
+        }
+    },
+    "Projects": {
+        "subtitle": "Our Projects",
+        "title": "Impressions of our work",
+        "all_projects": "All Projects",
+        "items": {
+            "berlin": "Office Cleaning in Berlin",
+            "frankfurt": "Glass Cleaning in Frankfurt",
+            "hamburg": "Industrial Cleaning in Hamburg"
+        }
+    },
+    "Testimonials": {
+        "subtitle": "Testimonials",
+        "title": "Why our customers trust us",
+        "verified_customer": "Verified Customer",
+        "items": {
+            "1": {
+                "name": "Dr. Miller",
+                "role": "Facility Manager",
+                "text": "Clean Up has brought our practice to a new level of hygiene. Absolutely professional and reliable."
+            },
+            "2": {
+                "name": "Sarah Smith",
+                "role": "Shop Owner",
+                "text": "The best glass cleaning we've ever had. Our storefronts shine like new!"
+            },
+            "3": {
+                "name": "Klaus Weber",
+                "role": "Production Lead",
+                "text": "Very thorough industrial cleaning. The team is punctual and works very conscientiously."
+            }
+        }
+    },
+    "Navigation": {
+        "home": "Home",
+        "services": "Services",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "CTA": {
+        "headline": "Ready for {span} cleanliness?",
+        "span": "flawless",
+        "description": "Benefit from our years of experience and our commitment to the highest quality standards.",
+        "cta_request": "Request an offer",
+        "cta_discover": "Discover services"
+    },
+    "Footer": {
+        "service_areas": "Service Areas",
+        "description": "Your partner for premium cleaning services across Germany. We set standards in cleanliness and professionalism.",
+        "quick_links": "Links",
+        "contact_title": "Contact",
+        "nationwide": "Nationwide",
+        "nationwide_detail": "Available for you nationwide in Germany",
+        "imprint": "Imprint",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "copyright": "© 2026 Clean Up. Created by Yazan-tech"
+    },
+    "ServicesDetail": {
+        "badge": "Excellence in Detail",
+        "title": "Our <span>Services</span>",
+        "description": "Transparent, thorough, and certified cleaning solutions for the highest demands.",
+        "premium_badge": "Premium Service",
+        "features": {
+            "service_24_7": "24/7 Service",
+            "team": "Professional Team",
+            "eco": "Eco-Friendly",
+            "prices": "Fair Prices"
+        },
+        "cta_button": "Request now",
+        "guarantee_title": "Quality Guarantee",
+        "guarantee_text": "Our team sets the highest standards for your satisfaction.",
+        "items": {
+            "office": {
+                "name": "Office Cleaning",
+                "description": "Cleaning of offices, meeting rooms, and workspaces."
+            },
+            "building": {
+                "name": "Building Cleaning",
+                "description": "Commercial buildings and residential complexes."
+            },
+            "glass": {
+                "name": "Glass Cleaning",
+                "description": "Windows, glass facades, and shop windows."
+            },
+            "industrial": {
+                "name": "Industrial Cleaning",
+                "description": "Factories, warehouses, and production facilities."
+            },
+            "medical": {
+                "name": "Practice Cleaning",
+                "description": "Medical offices, clinics, and laboratories."
+            }
+        }
+    },
+    "ProjectsDetail": {
+        "badge": "Perfection in Action",
+        "title": "Our <span>References</span>",
+        "description": "We set standards in the cleaning industry. Every project is proof of our passion.",
+        "project_type": "Project Type",
+        "labels": {
+            "certified": "Certified",
+            "punctual": "Punctual",
+            "discreet": "Discreet"
+        },
+        "items": {
+            "office": {
+                "name": "Office Cleaning Berlin",
+                "description": "Comprehensive maintenance cleaning for a large office complex."
+            },
+            "glass": {
+                "name": "Glass Cleaning Frankfurt",
+                "description": "Specialized facade cleaning for a modern skyscraper."
+            },
+            "industrial": {
+                "name": "Industrial Cleaning Hamburg",
+                "description": "Deep cleaning of a production facility including machinery maintenance."
+            },
+            "medical": {
+                "name": "Practice Cleaning Munich",
+                "description": "Hygienic cleaning in compliance with the strictest standards."
+            }
+        }
+    },
+    "Contact": {
+        "badge": "Direct Contact",
+        "title": "Contact <span>Us</span>",
+        "description": "We are available for you throughout Germany. Let's ensure cleanliness together.",
+        "next_step_title": "Ready for the next step?",
+        "next_step_text": "Contact us via the form or call us directly. We look forward to your project.",
+        "info": {
+            "phone": "Phone Number",
+            "email": "Email Address",
+            "location": "Location",
+            "location_detail": "Available for you nationwide in Germany",
+            "maps": "Google Maps Integration coming soon"
+        },
+        "form": {
+            "title": "Contact Form",
+            "badge": "Request a Free Quote",
+            "labels": {
+                "name": "Full Name",
+                "email": "Email Address",
+                "message": "Message"
+            },
+            "placeholders": {
+                "name": "e.g. John Doe",
+                "email": "name@example.com",
+                "message": "How can we help you?"
+            },
+            "button": "Send Message",
+            "privacy": "By submitting the form, you agree to our privacy policy."
+        }
+    }
+}

@@ -1,0 +1,223 @@
+{
+    "Index": {
+        "title": "Clean Up",
+        "description": "Professionelle Reinigungsdienste in ganz Deutschland"
+    },
+    "Hero": {
+        "badge": "Premium Reinigungsservice Deutschland",
+        "headline": "Professionelle <span>Reinigungsdienste</span> in ganz Deutschland",
+        "subheadline": "Clean Up bietet zuverlässige und hochwertige Reinigungslösungen für Geschäfts- und Privatkunden.",
+        "cta_request": "Angebot anfordern",
+        "cta_services": "Unsere Leistungen",
+        "features": {
+            "nationwide": "Bundesweit",
+            "pros": "Profis",
+            "eco": "Bio-Mittel"
+        },
+        "guarantee": "Garantierte Reinheit"
+    },
+    "WhyChooseUs": {
+        "subtitle": "Qualität & Vertrauen",
+        "title": "Warum Clean Up?",
+        "cards": {
+            "reliable": {
+                "title": "Zuverlässig",
+                "description": "Pünktlich und gewissenhaft."
+            },
+            "nationwide": {
+                "title": "Bundesweit verfügbar",
+                "description": "Wir reinigen überall in Deutschland."
+            },
+            "professional": {
+                "title": "Professionelles Team",
+                "description": "Geschulte Fachkräfte für jede Aufgabe."
+            },
+            "eco": {
+                "title": "Umweltfreundlich",
+                "description": "Schonende Reinigung mit ökologischen Mitteln."
+            }
+        }
+    },
+    "Services": {
+        "subtitle": "Unsere Kompetenz",
+        "main_title": "Exzellente Reinigungslösungen für jeden Bereich",
+        "title": "Unsere Leistungen",
+        "view_more": "Mehr über unsere Leistungen",
+        "learn_more": "Mehr erfahren",
+        "items": {
+            "office": {
+                "title": "Büroreinigung",
+                "description": "Reinigung von Büros, Besprechungsräumen und Arbeitsplätzen."
+            },
+            "building": {
+                "title": "Gebäudereinigung",
+                "description": "Gewerbeimmobilien und Wohnkomplexe."
+            },
+            "glass": {
+                "title": "Glasreinigung",
+                "description": "Fenster, Glasfassaden und Schaufenster."
+            },
+            "industrial": {
+                "title": "Industriereinigung",
+                "description": "Fabriken, Lagerhallen und Produktionsstätten."
+            },
+            "medical": {
+                "title": "Praxisreinigung",
+                "description": "Arztpraxen, Kliniken und Labore."
+            }
+        }
+    },
+    "Projects": {
+        "subtitle": "Unsere Referenzen",
+        "title": "Impressionen unserer Arbeit",
+        "all_projects": "Alle Projekte",
+        "items": {
+            "berlin": "Büroreinigung in Berlin",
+            "frankfurt": "Glasreinigung in Frankfurt",
+            "hamburg": "Industriereinigung in Hamburg"
+        }
+    },
+    "Testimonials": {
+        "subtitle": "Kundenstimmen",
+        "title": "Warum unsere Kunden uns vertrauen",
+        "verified_customer": "Verifizierter Kunde",
+        "items": {
+            "1": {
+                "name": "Maria Schmidt",
+                "role": "Facility Managerin",
+                "text": "Clean Up ist unser zuverlässigster Partner seit Jahren. Absolut empfehlenswert!"
+            },
+            "2": {
+                "name": "Thomas Weber",
+                "role": "Büroinhaber",
+                "text": "Überragender Service. Das Team ist pünktlich, diskret und das Ergebnis ist immer makellos."
+            },
+            "3": {
+                "name": "Laura Müller",
+                "role": "Privatkundin",
+                "text": "Die Glasreinigung war fantastisch. Meine Fenster haben noch nie so gestrahlt!"
+            }
+        }
+    },
+    "Navigation": {
+        "home": "Home",
+        "services": "Leistungen",
+        "projects": "Projekte",
+        "contact": "Kontakt"
+    },
+    "CTA": {
+        "headline": "Bereit für {span} Sauberkeit?",
+        "span": "makellose",
+        "description": "Profitieren Sie von unserer langjährigen Erfahrung und unserem Engagement für höchste Qualitätsstandards.",
+        "cta_request": "Angebot anfordern",
+        "cta_discover": "Leistungen entdecken"
+    },
+    "Footer": {
+        "service_areas": "Servicegebiete",
+        "description": "Ihr Partner für erstklassige Reinigungsdienste in ganz Deutschland. Wir setzen Maßstäbe in Sachen Sauberkeit und Professionalität.",
+        "quick_links": "Links",
+        "contact_title": "Kontakt",
+        "nationwide": "Deutschlandweit",
+        "nationwide_detail": "Deutschlandweit für Sie im Einsatz",
+        "imprint": "Impressum",
+        "privacy": "Datenschutz",
+        "terms": "AGB",
+        "copyright": "© 2026 Clean Up. Created by Yazan-tech"
+    },
+    "ServicesDetail": {
+        "badge": "Exzellenz im Detail",
+        "title": "Unsere <span>Leistungen</span>",
+        "description": "Transparente, gründliche und zertifizierte Reinigungslösungen für höchste Ansprüche.",
+        "premium_badge": "Premium Service",
+        "features": {
+            "service_24_7": "24/7 Service",
+            "team": "Professionelles Team",
+            "eco": "Umweltfreundlich",
+            "prices": "Faire Preise"
+        },
+        "cta_button": "Jetzt anfragen",
+        "guarantee_title": "Qualitätsgarantie",
+        "guarantee_text": "Unser Team setzt höchste Standards für Ihre Zufriedenheit.",
+        "items": {
+            "office": {
+                "name": "Büroreinigung",
+                "description": "Reinigung von Büros, Besprechungsräumen und Arbeitsplätzen."
+            },
+            "building": {
+                "name": "Gebäudereinigung",
+                "description": "Gewerbeimmobilien und Wohnkomplexe."
+            },
+            "glass": {
+                "name": "Glasreinigung",
+                "description": "Fenster, Glasfassaden und Schaufenster."
+            },
+            "industrial": {
+                "name": "Industriereinigung",
+                "description": "Fabriken, Lagerhallen und Produktionsstätten."
+            },
+            "medical": {
+                "name": "Praxisreinigung",
+                "description": "Arztpraxen, Kliniken und Labore."
+            }
+        }
+    },
+    "ProjectsDetail": {
+        "badge": "Perfektion im Einsatz",
+        "title": "Unsere <span>Referenzen</span>",
+        "description": "Wir setzen Maßstäbe in der Reinigungsbranche. Jedes Projekt ist ein Beweis für unsere Leidenschaft.",
+        "project_type": "Projekt Typ",
+        "labels": {
+            "certified": "Zertifiziert",
+            "punctual": "Pünktlich",
+            "discreet": "Diskret"
+        },
+        "items": {
+            "office": {
+                "name": "Büroreinigung Berlin",
+                "description": "Umfassende Unterhaltsreinigung für einen großen Bürokomplex."
+            },
+            "glass": {
+                "name": "Glasreinigung Frankfurt",
+                "description": "Spezialisierte Fassadenreinigung eines modernen Wolkenkratzers."
+            },
+            "industrial": {
+                "name": "Industriereinigung Hamburg",
+                "description": "Tiefenreinigung einer Produktionsstätte inkl. Maschinenpflege."
+            },
+            "medical": {
+                "name": "Praxisreinigung München",
+                "description": "Hygienereinigung unter Einhaltung strengster Standards."
+            }
+        }
+    },
+    "Contact": {
+        "badge": "Direktkontakt",
+        "title": "Kontaktieren <span>Sie uns</span>",
+        "description": "Wir sind deutschlandweit für Sie da. Lassen Sie uns gemeinsam für Sauberkeit sorgen.",
+        "next_step_title": "Bereit für den nächsten Schritt?",
+        "next_step_text": "Kontaktieren Sie uns über das Formular oder rufen Sie uns direkt an. Wir freuen uns auf Ihr Projekt.",
+        "info": {
+            "phone": "Telefonnummer",
+            "email": "E-Mail Adresse",
+            "location": "Standort",
+            "location_detail": "Deutschlandweit für Sie im Einsatz",
+            "maps": "Google Maps Integration in Kürze"
+        },
+        "form": {
+            "title": "Kontaktformular",
+            "badge": "Kostenloses Angebot anfragen",
+            "labels": {
+                "name": "Vollständiger Name",
+                "email": "E-Mail Adresse",
+                "message": "Nachricht"
+            },
+            "placeholders": {
+                "name": "z.B. Max Mustermann",
+                "email": "name@beispiel.de",
+                "message": "Wie können wir Ihnen helfen?"
+            },
+            "button": "Nachricht Senden",
+            "privacy": "Indem Sie das Formular absenden, erklären Sie sich mit unserer Datenschutzvereinbarung einverstanden."
+        }
+    }
+}
