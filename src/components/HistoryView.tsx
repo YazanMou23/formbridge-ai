@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
+import { apiFetch } from '@/lib/apiHelper';
 
 
 interface HistoryItem {
@@ -27,7 +28,7 @@ export default function HistoryView({ onBack }: HistoryViewProps) {
 
     const fetchHistory = async () => {
         try {
-            const res = await fetch('/api/history');
+            const res = await apiFetch('/api/history');
             const data = await res.json();
             if (data.success) {
                 setHistory(data.history);

@@ -15,6 +15,7 @@ import ImageToPdf from '@/components/ImageToPdf';
 import HistoryView from '@/components/HistoryView';
 import ProfileModal from '@/components/ProfileModal';
 import type { User } from '@/types/auth';
+import { apiFetch } from '@/lib/apiHelper';
 
 function HomePageContent() {
   const searchParams = useSearchParams();
@@ -85,13 +86,14 @@ function HomePageContent() {
     try {
       const tabSessionActive = sessionStorage.getItem('formbridge_tab_session');
       if (!tabSessionActive) {
-        await fetch('/api/auth/logout', { method: 'POST' });
+        await apiFetch('/api/auth/logout', { method: 'POST' });
+        localStorage.removeItem('auth_token');
         setUser(null);
         setAuthLoading(false);
         return;
       }
 
-      const res = await fetch('/api/auth/me');
+      const res = await apiFetch('/api/auth/me');
       const data = await res.json();
       if (data.success && data.user) {
         setUser(data.user);
@@ -119,7 +121,8 @@ function HomePageContent() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await apiFetch('/api/auth/logout', { method: 'POST' });
+      localStorage.removeItem('auth_token');
       sessionStorage.removeItem('formbridge_tab_session');
       setUser(null);
       setUserCredits(credits);

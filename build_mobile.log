@@ -1,0 +1,47 @@
+
+> formbridge-ai@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.7s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+[Auth Init] Environment Check: {
+  hasKvUrl: false,
+  hasUpstashUrl: false,
+  hasRedisUrl: false,
+  isVercelEnv: false,
+  nodeEnv: 'production',
+  IS_VERCEL_DETERMINED: true
+}
+[Auth Init] Environment Check: {
+  hasKvUrl: false,
+  hasUpstashUrl: false,
+  hasRedisUrl: false,
+  isVercelEnv: false,
+  nodeEnv: 'production',
+  IS_VERCEL_DETERMINED: true
+}
+Error: export const dynamic = "force-static"/export const revalidate not configured on route "/api/auth/me" with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+    at module evaluation (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\chunks\[root-of-the-server]__049156e4._.js:1:2035)
+    at instantiateModule (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\chunks\[turbopack]_runtime.js:740:9)
+    at instantiateRuntimeModule (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\chunks\[turbopack]_runtime.js:768:12)
+    at getOrInstantiateRuntimeModule (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\chunks\[turbopack]_runtime.js:781:12)
+    at Object.m (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\chunks\[turbopack]_runtime.js:790:18)
+    at Object.<anonymous> (C:\Users\yazan\OneDrive\Desktop\dev app\Ai helper\formbridge-ai\.next\server\app\api\auth\me\route.js:6:3)
+
+> Build error occurred
+Error: Failed to collect page data for /api/auth/me
+    at ignore-listed frames {
+  type: 'Error'
+}

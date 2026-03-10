@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import type { Locale } from '@/types';
 import { t } from '@/lib/translations';
+import { apiFetch } from '@/lib/apiHelper';
 
 interface CreditPackage {
     id: string;
@@ -52,7 +53,7 @@ export default function CreditsModal({ isOpen, onClose, locale, isLoggedIn, onLo
         setError(null);
 
         try {
-            const res = await fetch('/api/payments/checkout', {
+            const res = await apiFetch('/api/payments/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ packageId: selectedPackage }),

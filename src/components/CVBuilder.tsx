@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Font } from '@react-pdf/renderer';
+import { apiFetch } from '@/lib/apiHelper';
 
 // Register fonts for PDF (using standard fonts for now to avoid loading issues)
 // In a real app, you'd register custom fonts like Roboto or Open Sans to support Arabic if needed
@@ -151,7 +152,7 @@ export default function CVBuilder({ onBack, user, userCredits, setUserCredits, o
         setStep('generating');
         try {
             // Deduct credits first
-            const creditRes = await fetch('/api/credits/deduct', {
+            const creditRes = await apiFetch('/api/credits/deduct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: CV_COST }),
@@ -168,7 +169,7 @@ export default function CVBuilder({ onBack, user, userCredits, setUserCredits, o
             setUserCredits(creditData.credits);
 
             // Generate CV
-            const response = await fetch('/api/cv/generate', {
+            const response = await apiFetch('/api/cv/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

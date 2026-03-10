@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import type { User } from '@/types/auth';
 import type { Locale } from '@/types';
+import { apiFetch } from '@/lib/apiHelper';
 
 interface Props {
     user: User;
@@ -45,7 +46,7 @@ export default function ProfileModal({ user, locale, onClose, onUpdate }: Props)
         setSuccess(false);
 
         try {
-            const res = await fetch('/api/auth/profile/update', {
+            const res = await apiFetch('/api/auth/profile/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, photoUrl }),

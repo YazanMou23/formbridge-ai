@@ -12,6 +12,7 @@ import PositionAdjuster from '@/components/PositionAdjuster';
 import DirectFormEditor from '@/components/DirectFormEditor';
 import type { FormField, FormResult } from '@/types';
 import type { User } from '@/types/auth';
+import { apiFetch } from '@/lib/apiHelper';
 
 const CREDIT_COST = 1;
 
@@ -68,7 +69,7 @@ export default function FormFiller({
         setError(null);
 
         try {
-            const res = await fetch('/api/analyze', {
+            const res = await apiFetch('/api/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ imageBase64 }),
@@ -95,7 +96,7 @@ export default function FormFiller({
         setError(null);
 
         try {
-            const creditRes = await fetch('/api/credits/deduct', {
+            const creditRes = await apiFetch('/api/credits/deduct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: CREDIT_COST }),
@@ -116,7 +117,7 @@ export default function FormFiller({
                 arabicAnswer: answers[field.id] || '',
             }));
 
-            const res = await fetch('/api/translate', {
+            const res = await apiFetch('/api/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answers: answersArray }),
@@ -231,7 +232,7 @@ export default function FormFiller({
             let translations: any[] = [];
 
             if (answersToTranslate.length > 0) {
-                const res = await fetch('/api/translate', {
+                const res = await apiFetch('/api/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ answers: answersToTranslate }),
@@ -273,7 +274,7 @@ export default function FormFiller({
                 };
             });
 
-            const creditRes = await fetch('/api/credits/deduct', {
+            const creditRes = await apiFetch('/api/credits/deduct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: CREDIT_COST }),

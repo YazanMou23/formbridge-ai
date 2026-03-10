@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import UploadZone from '@/components/UploadZone';
 import { t } from '@/lib/translations';
+import { apiFetch } from '@/lib/apiHelper';
 
 interface Props {
     onBack: () => void;
@@ -28,7 +29,7 @@ export default function DocumentExplainer({ onBack }: Props) {
         setError(null);
 
         try {
-            const res = await fetch('/api/explain', {
+            const res = await apiFetch('/api/explain', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ imageBase64: imageBase64 }), // Must include data:image/png;base64,... prefix

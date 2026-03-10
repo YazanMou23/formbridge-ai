@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import type { FormField, Locale } from '@/types';
 import SignatureCanvas from 'react-signature-canvas';
+import { apiFetch } from '@/lib/apiHelper';
 
 export interface TextBox {
     id: string;
@@ -243,7 +244,7 @@ export default function DirectFormEditor({ imageBase64, fields, onComplete, loca
             const boxesToTranslate = textBoxes.filter(b => b.text.trim() && !b.isTranslated && b.type !== 'signature');
             if (boxesToTranslate.length === 0) { setIsTranslating(false); return; }
 
-            const res = await fetch('/api/translate', {
+            const res = await apiFetch('/api/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

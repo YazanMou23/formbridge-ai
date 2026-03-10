@@ -5,6 +5,7 @@ import type { Locale } from '@/types';
 import type { User } from '@/types/auth';
 import { t } from '@/lib/translations';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { apiFetch } from '@/lib/apiHelper';
 
 interface Props {
     isOpen: boolean;
@@ -48,7 +49,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, locale }: Props)
             const endpoint = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
             const body: any = mode === 'login' ? { email, password } : { name, email, password, deviceId };
 
-            const res = await fetch(endpoint, {
+            const res = await apiFetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
@@ -68,11 +69,14 @@ export default function AuthModal({ isOpen, onClose, onSuccess, locale }: Props)
             }
 
             if (data.user) {
+                if (data.token) {
+                    localStorage.setItem('auth_token', data.token);
+                }
                 onSuccess(data.user);
                 onClose();
             }
-        } catch {
-            setError(t(locale, 'errors.apiError'));
+        } catch (e: any) {
+            setError(e.message || t(locale, 'errors.apiError'));
         } finally {
             setIsLoading(false);
         }

@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const isMobileBuild = process.env.MOBILE_BUILD === "true";
+
 const nextConfig: NextConfig = {
-  // output: 'standalone', // Not needed for Vercel
-  // outputFileTracingRoot: path.join(__dirname),
+  output: isMobileBuild ? "export" : undefined,
+  images: {
+    unoptimized: isMobileBuild || undefined,
+  },
   turbopack: {},
   webpack: (config: any) => {
     config.resolve.alias.canvas = false;
