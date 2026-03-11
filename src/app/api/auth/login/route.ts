@@ -9,7 +9,15 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ success: false, error: 'البريد وكلمة المرور مطلوبان' }, { status: 400 });
         }
 
-        const user = await validateUser(email, password);
+        let user;
+        try {
+            user = await validateUser(email, password);
+        } catch (e: any) {
+            if (e.message === 'NOT_VERIFIED') {
+                return NextResponse.json({ success: false, error: 'الرجاء تفعيل حسابك من خلال الرابط المرسل إلى بريدك الإلكتروني' }, { status: 403 });
+            }
+            throw e;
+        }
 
         if (!user) {
             return NextResponse.json({ success: false, error: 'بيانات تسجيل الدخول غير صحيحة' }, { status: 401 });

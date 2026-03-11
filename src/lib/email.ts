@@ -42,6 +42,37 @@ export async function sendVerificationEmail(email: string, token: string) {
     }
 }
 
+export async function sendPasswordResetEmail(email: string, token: string) {
+    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
+
+    const mailOptions = {
+        from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',
+        to: email,
+        subject: 'Reset your password - FormBridge AI',
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <h2 style="color: #4F46E5;">Password Reset Request</h2>
+                <p>We received a request to reset your password. Click the button below to choose a new password:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="${resetLink}" style="background-color: #4F46E5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Reset Password</a>
+                </div>
+                <p>If you didn't request a password reset, you can safely ignore this email. Your current password will remain the same.</p>
+                <p style="font-size: 12px; color: #666; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
+                    If the button doesn't work, copy and paste this link into your browser:<br> <a href="${resetLink}" style="color: #4F46E5;">${resetLink}</a>
+                </p>
+            </div>
+        `,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        return true;
+    } catch (error) {
+        console.error('Error sending reset email:', error);
+        return false;
+    }
+}
+
 export async function sendWelcomeEmail(email: string, name: string) {
     const mailOptions = {
         from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',

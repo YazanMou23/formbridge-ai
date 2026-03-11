@@ -149,7 +149,7 @@ export async function createUser(name: string, email: string, password: string, 
         createdAt: new Date().toISOString(),
         passwordHash,
         deviceId,
-        isVerified: true,
+        isVerified: false,
         verificationToken,
     };
 
@@ -196,10 +196,10 @@ export async function validateUser(email: string, password: string): Promise<Use
     const isValid = await bcrypt.compare(password, user.passwordHash);
     if (!isValid) return null;
 
-    // if (user.isVerified === false) {
-    //     console.warn(`Login attempt for unverified user: ${email}`);
-    //     return null;
-    // }
+    if (user.isVerified === false || user.isVerified === undefined) {
+        console.warn(`Login attempt for unverified user: ${email}`);
+        throw new Error('NOT_VERIFIED');
+    }
 
     const { passwordHash: _, ...safeUser } = user;
     return safeUser;
@@ -321,6 +321,57 @@ export async function verifyUserAccount(token: string): Promise<User | null> {
 
         const { passwordHash: _, ...safeUser } = user;
         return safeUser;
+    }
+}
+
+export async function createPasswordResetToken(email: string): Promise<string | null> {
+    if (IS_VERCEL) {
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
+        if (!user) return null;
+
+        const token = crypto.randomUUID();
+        // Store token with 1 hour expiration
+        await kvClient.set(`reset:${token}`, email, { ex: 3600 });
+        return token;
+    } else {
+        const users = loadUsersLocal();
+        const user = users[email];
+        if (!user) return null;
+
+        const token = crypto.randomUUID();
+        // Uses verificationToken field as reset token
+        user.verificationToken = `reset_${token}`;
+        users[email] = user;
+        saveUsersLocal(users);
+        return token;
+    }
+}
+
+export async function resetPasswordAndClearToken(token: string, newPassword: string): Promise<boolean> {
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+
+    if (IS_VERCEL) {
+        const email = await kvClient.get<string>(`reset:${token}`);
+        if (!email) return false;
+
+        const user = await kvClient.get<StoredUser>(`user:${email}`);
+        if (!user) return false;
+
+        user.passwordHash = passwordHash;
+        await kvClient.set(`user:${email}`, user);
+        await kvClient.del(`reset:${token}`);
+        return true;
+    } else {
+        const users = loadUsersLocal();
+        const email = Object.keys(users).find(e => users[e].verificationToken === `reset_${token}`);
+        if (!email) return false;
+
+        const user = users[email];
+        user.passwordHash = passwordHash;
+        user.verificationToken = undefined;
+        users[email] = user;
+        saveUsersLocal(users);
+        return true;
     }
 }
 

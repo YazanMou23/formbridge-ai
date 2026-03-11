@@ -31,30 +31,17 @@ export async function POST(request: NextRequest) {
             // I DID add `verificationToken` to `User` interface in `types/auth.ts`.
             // So `safeUser` WILL include `verificationToken`.
 
-            // Auto-login logic since we defined isVerified: true
-            const { generateToken } = await import('@/lib/auth');
-            const token = generateToken(user);
+            // Send verification email
+            if ((user as any).verificationToken) {
+                sendVerificationEmail(user.email, (user as any).verificationToken).catch(console.error);
+            }
 
-            // Send WELCOME email instead of verification
-            // Fire and forget - don't await to speed up response
-            const { sendWelcomeEmail } = await import('@/lib/email');
-            sendWelcomeEmail(user.email, user.name).catch(console.error);
-
-            const response = NextResponse.json({
+            return NextResponse.json({
                 success: true,
                 message: 'Account created successfully',
-                user,
-                token
+                requiresVerification: true,
+                user
             });
-
-            // Set auth cookie
-            response.cookies.set('auth_token', token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-            });
-
-            return response;
 
         } catch (err: any) {
             // Handle duplicate device error

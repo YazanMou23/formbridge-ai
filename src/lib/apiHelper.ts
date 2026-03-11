@@ -1,4 +1,9 @@
 export const getApiUrl = (path: string) => {
+    // Return relative path for local development to use the local Next.js server
+    if (process.env.NODE_ENV === 'development') {
+        return path;
+    }
+
     // If NEXT_PUBLIC_MOBILE_API_URL is set (e.g. your production URL for mobile builds),
     // use it as the base URL. Otherwise, it will fallback to the relative path (for normal web).
     const baseUrl = process.env.NEXT_PUBLIC_MOBILE_API_URL || "";
