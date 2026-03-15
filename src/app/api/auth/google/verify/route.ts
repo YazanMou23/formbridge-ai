@@ -30,11 +30,14 @@ export async function POST(request: NextRequest) {
         } else if (body.credential) {
             // Legacy ID-token flow (kept for backward compatibility)
             const { OAuth2Client } = await import('google-auth-library');
-            const client = new OAuth2Client(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+            const client = new OAuth2Client();
 
             const ticket = await client.verifyIdToken({
                 idToken: body.credential,
-                audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                audience: [
+                    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+                    process.env.GooGlE_ClIENT_ID_ANDROID || ''
+                ],
             });
 
             const payload = ticket.getPayload();

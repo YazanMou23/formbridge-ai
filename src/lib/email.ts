@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendVerificationEmail(email: string, token: string) {
-    const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/auth/verify?token=${token}`;
+    const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}/api/auth/verify?token=${token}`;
 
     const mailOptions = {
         from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',
@@ -43,7 +43,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 }
 
 export async function sendPasswordResetEmail(email: string, token: string) {
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}/reset-password?token=${token}`;
 
     const mailOptions = {
         from: process.env.SMTP_FROM || '"FormBridge AI" <info@meinedienstleistungen.de>',
@@ -91,7 +91,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
                 </ul>
                 <p>You have free credits to get started. Log in now and try out our features!</p>
                 <div style="text-align: center; margin: 30px 0;">
-                    <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}" style="background-color: #4F46E5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Go to Dashboard</a>
+                    <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}" style="background-color: #4F46E5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Go to Dashboard</a>
                 </div>
                 <p style="font-size: 12px; color: #666; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
                     © ${new Date().getFullYear()} FormBridge AI. All rights reserved.
@@ -111,7 +111,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
 }
 
 export async function sendRemarketingEmail(email: string) {
-    const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}`;
+    const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}`;
 
     // Using the previously defined content directly here for consistency
     const htmlContent = `

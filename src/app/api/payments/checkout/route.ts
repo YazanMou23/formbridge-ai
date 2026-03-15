@@ -39,8 +39,8 @@ export async function POST(request: NextRequest) {
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?payment=success&credits=${creditPackage.credits}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?payment=cancelled`,
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}/?payment=success&credits=${creditPackage.credits}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://formbridge-ai.vercel.app'}/?payment=cancelled`,
             metadata: {
                 userId: decoded.id,
                 userEmail: decoded.email,
