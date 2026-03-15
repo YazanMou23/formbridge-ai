@@ -1,0 +1,9 @@
+[
+  "[INFO] Starting Inspection...",
+  "[CONNECT] Connected to WebView",
+  "[PAGE] {\n  \"url\": \"https://localhost/\",\n  \"title\": \"FormBridge AI - مساعد تعبئة النماذج الألمانية\"\n}",
+  "[CAPACITOR] {\n  \"hasCapacitor\": true,\n  \"platform\": \"android\",\n  \"hasGoogleAuth\": true\n}",
+  "[UI_INSPECTION] {\n  \"googleButtons\": []\n}",
+  "[CONTEXT_SCAN] {}",
+  "[LOADING_STATE] undefined"
+]

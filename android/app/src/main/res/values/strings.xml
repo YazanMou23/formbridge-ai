@@ -4,4 +4,5 @@
     <string name="title_activity_main">FormBridge AI</string>
     <string name="package_name">com.formbridgeai.app</string>
     <string name="custom_url_scheme">com.formbridgeai.app</string>
+    <string name="server_client_id">18682670397-ktf7brq63spvjjpkee6aq2d9lui4gv71.apps.googleusercontent.com</string>
 </resources>

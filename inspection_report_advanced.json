@@ -1,0 +1,10 @@
+[
+  "[INFO] Starting Advanced Inspection...",
+  "[CONNECT] Connected to WebView",
+  "[INITIAL_TEXT] العربية\nDeutsch\nتسجيل الدخول\nعبّئ النماذج الألمانية بسهولة\n\nارفع صورة النموذج الألماني، أجب عن الأسئ",
+  "[ACTION] Clicking Login Button...",
+  "[GOOGLE_BTN] FOUND",
+  "[GOOGLE_BTN_DETAILS] {\n  \"text\": \"تسجيل الدخول بحساب Google\",\n  \"className\": \"\",\n  \"visible\": true,\n  \"rect\": {}\n}",
+  "[ACTION] Clicking Google Sign-In Button...",
+  "[POST_CLICK_CHECK] {\n  \"loading\": false,\n  \"errors\": []\n}"
+]

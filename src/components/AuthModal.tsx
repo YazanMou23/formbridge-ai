@@ -7,6 +7,7 @@ import { t } from '@/lib/translations';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { apiFetch } from '@/lib/apiHelper';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { isNativePlatform, googleSignInNative } from '@/lib/googleAuth';
 
 interface Props {
     isOpen: boolean;
@@ -33,6 +34,7 @@ function AuthModalInner({ isOpen, onClose, onSuccess, locale }: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [isNative, setIsNative] = useState(false);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -46,6 +48,13 @@ function AuthModalInner({ isOpen, onClose, onSuccess, locale }: Props) {
             setDeviceId(visitorId);
         };
         setFp();
+
+        // Detect native platform (Android/iOS)
+        try {
+            setIsNative(isNativePlatform());
+        } catch {
+            setIsNative(false);
+        }
     }, []);
 
     /* ── Localized labels ── */
@@ -61,7 +70,62 @@ function AuthModalInner({ isOpen, onClose, onSuccess, locale }: Props) {
         return mode === 'register' ? 'Mit Google registrieren' : 'Mit Google anmelden';
     })();
 
-    /* ── Google Login (implicit flow → access_token) ── */
+    /* ── Native Google Sign-In (Android/iOS via Capacitor plugin) ── */
+    const handleNativeGoogleSignIn = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const googleUser = await googleSignInNative();
+
+            // Send the token to our backend for verification
+            // Prefer idToken, fallback to accessToken
+            const bodyPayload: any = {};
+            if (googleUser.idToken) {
+                bodyPayload.credential = googleUser.idToken;
+            } else if (googleUser.accessToken) {
+                bodyPayload.access_token = googleUser.accessToken;
+            } else {
+                // No token available – send user info directly for server-side handling
+                setError(locale === 'ar' ? 'فشل تسجيل الدخول بحساب Google.' : 'Google-Anmeldung fehlgeschlagen.');
+                setIsLoading(false);
+                return;
+            }
+
+            const res = await apiFetch('/api/auth/google/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bodyPayload),
+            });
+            const data = await res.json();
+
+            if (!data.success) {
+                setError(data.error || t(locale, 'errors.apiError'));
+                setIsLoading(false);
+                return;
+            }
+            if (data.user) {
+                if (data.token) localStorage.setItem('auth_token', data.token);
+                onSuccess(data.user);
+                onClose();
+            }
+        } catch (e: any) {
+            console.error('[Google Native Auth Error]', e);
+            
+            // Extract detailed error info
+            const errorMsg = e?.message || JSON.stringify(e);
+            
+            // User cancelled the sign-in
+            if (errorMsg.toLowerCase().includes('canceled') || errorMsg.toLowerCase().includes('cancelled') || e?.code === 'SIGN_IN_CANCELLED') {
+                setIsLoading(false);
+                return;
+            }
+            
+            setError(`Google Error: ${errorMsg}`);
+            setIsLoading(false);
+        }
+    };
+
+    /* ── Web Google Login (implicit flow → access_token) ── */
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             setIsLoading(true);
@@ -226,7 +290,7 @@ function AuthModalInner({ isOpen, onClose, onSuccess, locale }: Props) {
 
                         <button
                             type="button"
-                            onClick={() => googleLogin()}
+                            onClick={() => isNative ? handleNativeGoogleSignIn() : googleLogin()}
                             disabled={isLoading}
                             style={googleBtnStyle}
                             onMouseEnter={e => { (e.target as HTMLButtonElement).style.background = '#f7f8f8'; (e.target as HTMLButtonElement).style.boxShadow = '0 1px 3px rgba(0,0,0,0.15)'; }}

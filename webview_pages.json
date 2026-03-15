@@ -1,0 +1,10 @@
+﻿[ {
+   "description": "{\"attached\":true,\"empty\":false,\"height\":2400,\"never_attached\":false,\"screenX\":0,\"screenY\":0,\"visible\":true,\"width\":1080}",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@ce0f328d1efe65e6be766d7219387fff567ffdf5/inspector.html?ws=localhost:9333/devtools/page/A7566787438503225830E09E931281CD",
+   "faviconUrl": "https://localhost/icon-192.png",
+   "id": "A7566787438503225830E09E931281CD",
+   "title": "FormBridge AI - ┘àÏ│ÏºÏ╣Ï» Ï¬Ï╣Ï¿ÏªÏ® Ïº┘ä┘å┘àÏºÏ░Ï¼ Ïº┘äÏú┘ä┘àÏº┘å┘èÏ®",
+   "type": "page",
+   "url": "https://localhost/",
+   "webSocketDebuggerUrl": "ws://localhost:9333/devtools/page/A7566787438503225830E09E931281CD"
+} ]
