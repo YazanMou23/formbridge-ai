@@ -6,11 +6,16 @@ import UploadZone from '@/components/UploadZone';
 import { t } from '@/lib/translations';
 import { apiFetch } from '@/lib/apiHelper';
 
+const CREDIT_COST = 1;
+
 interface Props {
     onBack: () => void;
+    userCredits: number;
+    setUserCredits: (credits: number) => void;
+    onBuyCredits: () => void;
 }
 
-export default function DocumentExplainer({ onBack }: Props) {
+export default function DocumentExplainer({ onBack, userCredits, setUserCredits, onBuyCredits }: Props) {
     const { locale } = useApp();
     const [imageBase64, setImageBase64] = useState<string | null>(null);
     const [explanation, setExplanation] = useState<string | null>(null);
@@ -25,14 +30,36 @@ export default function DocumentExplainer({ onBack }: Props) {
 
     const handleExplain = async () => {
         if (!imageBase64) return;
+
+        if (userCredits < CREDIT_COST) {
+            onBuyCredits();
+            return;
+        }
+
         setIsLoading(true);
         setError(null);
 
         try {
+            // Deduct credits first
+            const creditRes = await apiFetch('/api/credits/deduct', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: CREDIT_COST }),
+            });
+
+            const creditData = await creditRes.json();
+            if (!creditData.success) {
+                setError(creditData.error || (locale === 'ar' ? 'رصيد غير كافٍ' : 'Nicht genügend Credits'));
+                setIsLoading(false);
+                return;
+            }
+
+            setUserCredits(creditData.credits);
+
             const res = await apiFetch('/api/explain', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ imageBase64: imageBase64 }), // Must include data:image/png;base64,... prefix
+                body: JSON.stringify({ imageBase64: imageBase64 }),
             });
 
             const data = await res.json();

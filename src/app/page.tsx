@@ -461,7 +461,12 @@ function HomePageContent() {
                 )}
 
                 {selectedFeature === 'explain' && (
-                  <DocumentExplainer onBack={() => setSelectedFeature(null)} />
+                  <DocumentExplainer
+                    onBack={() => setSelectedFeature(null)}
+                    userCredits={userCredits}
+                    setUserCredits={setUserCredits}
+                    onBuyCredits={() => setShowCreditsModal(true)}
+                  />
                 )}
 
                 {selectedFeature === 'cv' && (
@@ -476,11 +481,21 @@ function HomePageContent() {
                 )}
 
                 {selectedFeature === 'pdf-edit' && (
-                  <PdfEditor onBack={() => setSelectedFeature(null)} />
+                  <PdfEditor
+                    onBack={() => setSelectedFeature(null)}
+                    userCredits={userCredits}
+                    setUserCredits={setUserCredits}
+                    onBuyCredits={() => setShowCreditsModal(true)}
+                  />
                 )}
 
                 {selectedFeature === 'image-pdf' && (
-                  <ImageToPdf onBack={() => setSelectedFeature(null)} />
+                  <ImageToPdf
+                    onBack={() => setSelectedFeature(null)}
+                    userCredits={userCredits}
+                    setUserCredits={setUserCredits}
+                    onBuyCredits={() => setShowCreditsModal(true)}
+                  />
                 )}
 
                 {selectedFeature === 'history' && (

@@ -6,6 +6,7 @@ import { jsPDF } from 'jspdf';
 import { t } from '@/lib/translations';
 import { useApp } from '@/context/AppContext';
 import { validateImage } from '@/lib/imageUtils';
+import { apiFetch } from '@/lib/apiHelper';
 
 import 'react-image-crop/dist/ReactCrop.css';
 
@@ -29,7 +30,16 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
     )
 }
 
-export default function ImageToPdf({ onBack }: Props) {
+const CREDIT_COST = 1;
+
+interface Props {
+    onBack: () => void;
+    userCredits: number;
+    setUserCredits: (credits: number) => void;
+    onBuyCredits: () => void;
+}
+
+export default function ImageToPdf({ onBack, userCredits, setUserCredits, onBuyCredits }: Props) {
     const { locale } = useApp();
     const [imgSrc, setImgSrc] = useState('');
     const [crop, setCrop] = useState<Crop>();
@@ -99,8 +109,29 @@ export default function ImageToPdf({ onBack }: Props) {
 
     const generatePdf = async () => {
         if (!imgSrc || !imgRef.current) return;
+
+        if (userCredits < CREDIT_COST) {
+            onBuyCredits();
+            return;
+        }
+
         setIsLoading(true);
         try {
+            // Deduct credit
+            const creditRes = await apiFetch('/api/credits/deduct', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: CREDIT_COST }),
+            });
+
+            const creditData = await creditRes.json();
+            if (!creditData.success) {
+                alert(creditData.error || (locale === 'ar' ? 'رصيد غير كافٍ' : 'Nicht genügend Credits'));
+                setIsLoading(false);
+                return;
+            }
+
+            setUserCredits(creditData.credits);
             const canvas = document.createElement('canvas');
             const image = imgRef.current;
             const ctx = canvas.getContext('2d');

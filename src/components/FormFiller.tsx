@@ -283,7 +283,7 @@ export default function FormFiller({
             if (creditRes.ok) {
                 const creditData = await creditRes.json();
                 if (creditData.success) {
-                    setUserCredits(creditData.remainingCredits);
+                    setUserCredits(creditData.credits);
                     deductCredits(CREDIT_COST);
                 }
             }

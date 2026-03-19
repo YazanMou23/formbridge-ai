@@ -5,12 +5,18 @@ import { jsPDF } from 'jspdf';
 import DirectFormEditor, { type TextBox } from './DirectFormEditor';
 import { handleFileSelection } from '@/lib/pdfUtils';
 import { useApp } from '@/context/AppContext';
+import { apiFetch } from '@/lib/apiHelper';
+
+const CREDIT_COST = 1;
 
 interface Props {
     onBack: () => void;
+    userCredits: number;
+    setUserCredits: (credits: number) => void;
+    onBuyCredits: () => void;
 }
 
-export default function PdfEditor({ onBack }: Props) {
+export default function PdfEditor({ onBack, userCredits, setUserCredits, onBuyCredits }: Props) {
     const { locale } = useApp();
     const [file, setFile] = useState<File | null>(null);
     const [imageBase64, setImageBase64] = useState<string | null>(null);
@@ -42,9 +48,30 @@ export default function PdfEditor({ onBack }: Props) {
 
     const handleComplete = async (textBoxes: TextBox[]) => {
         if (!imageBase64) return;
+
+        if (userCredits < CREDIT_COST) {
+            onBuyCredits();
+            return;
+        }
+
         setIsLoading(true);
 
         try {
+            // Deduct credit
+            const creditRes = await apiFetch('/api/credits/deduct', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: CREDIT_COST }),
+            });
+
+            const creditData = await creditRes.json();
+            if (!creditData.success) {
+                alert(creditData.error || (locale === 'ar' ? 'رصيد غير كافٍ' : 'Nicht genügend Credits'));
+                setIsLoading(false);
+                return;
+            }
+
+            setUserCredits(creditData.credits);
             // Create PDF
             // Load image to get dimensions
             const img = new Image();
