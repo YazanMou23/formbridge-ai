@@ -96,6 +96,14 @@ export default function Header({ locale, onLocaleChange, credits, user, onLoginC
                                             </svg>
                                             {t(locale, 'auth.editProfile')}
                                         </button>
+                                        {user.role === 'admin' && (
+                                            <a href="/admin-portal" className="user-menu__item" style={{ textDecoration: 'none' }}>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <path d="M12 15v2m0 0v2m0-2h2m-2 0H10m7-7V7a5 5 0 00-10 0v4m-2 0h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2z" />
+                                                </svg>
+                                                {locale === 'ar' ? 'لوحة التحكم' : 'Admin Dashboard'}
+                                            </a>
+                                        )}
                                         <button className="user-menu__item user-menu__item--danger" onClick={() => { onLogout(); setShowMenu(false); }}>
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                                 <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
