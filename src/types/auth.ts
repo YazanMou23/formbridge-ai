@@ -12,6 +12,7 @@ export interface User {
     verificationToken?: string;
     deviceId?: string;
     photoUrl?: string;
+    role?: 'admin' | 'user';
 }
 
 export interface AuthState {

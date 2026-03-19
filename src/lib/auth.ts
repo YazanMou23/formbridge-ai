@@ -22,6 +22,10 @@ if (!process.env.KV_REST_API_URL && process.env.UPSTASH_REDIS_REST_URL) {
 
 const JWT_SECRET = process.env.JWT_SECRET || 'formbridge-ai-secret-key-change-in-production';
 const INITIAL_CREDITS = 10;
+const ADMIN_EMAILS = [
+    'yazanmousa03@gmail.com',
+    'info@meinedienstleistungen.de'
+];
 
 // FORCE Vercel mode if any of these are true:
 // 1. KV_REST_API_URL exists
@@ -79,7 +83,14 @@ function loadUsersLocal(): Record<string, StoredUser> {
         if (fs.existsSync(USERS_FILE)) {
             const data = fs.readFileSync(USERS_FILE, 'utf-8');
             const parsed: UsersData = JSON.parse(data);
-            return parsed.users || {};
+            const users = parsed.users || {};
+            // Migration: Add role if missing
+            Object.keys(users).forEach(email => {
+                if (!users[email].role) {
+                    users[email].role = ADMIN_EMAILS.includes(email.toLowerCase()) ? 'admin' : 'user';
+                }
+            });
+            return users;
         }
     } catch (error) {
         console.error('Error loading local users:', error);
@@ -151,6 +162,7 @@ export async function createUser(name: string, email: string, password: string, 
         deviceId,
         isVerified: false,
         verificationToken,
+        role: ADMIN_EMAILS.includes(email.toLowerCase()) ? 'admin' : 'user',
     };
 
     if (IS_VERCEL) {
@@ -216,6 +228,10 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     }
 
     if (!user) return null;
+
+    if (!user.role) {
+        user.role = ADMIN_EMAILS.includes(email.toLowerCase()) ? 'admin' : 'user';
+    }
 
     const { passwordHash: _, ...safeUser } = user;
     return safeUser;
